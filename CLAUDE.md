@@ -20,7 +20,11 @@ Full product spec: docs/SPEC.md. Read it before planning anything.
 
 ## AI model routing (in the app)
 - `claude-haiku-5-5`: instant first pass (product name, label type, readable yes/no) and follow-up Q&A chat.
-- `claude-sonnet-5-5`: the deep analysis with vision and forced tool use (structured JSON).
+- `claude-sonnet-5-5`: the deep analysis with vision and structured JSON via a tool call.
+  Sonnet 5.5 rejects forced `tool_choice` ({type:"tool"} / {type:"any"}), so lib/callTool.ts sends
+  `tool_choice: {type:"auto", disable_parallel_tool_use: true}` plus a system-prompt instruction to
+  call the tool exactly once, then zod-parses the input and retries once with the issues fed back.
+- `temperature` (and top_p/top_k) is not supported on these models. Never send it.
 - Run the Haiku and Sonnet calls IN PARALLEL on the same image. Show Haiku's result immediately,
   then fill in Sonnet's analysis. If Haiku says unreadable, cancel Sonnet and ask for a retake.
 - Model IDs live in lib/models.ts as constants. Never hardcode them elsewhere.
