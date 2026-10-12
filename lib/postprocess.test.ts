@@ -6,6 +6,7 @@ const flag = (over: Partial<PersonalFlag>): PersonalFlag => ({
   severity: "caution",
   kind: "other",
   title: "t",
+  stickerTitle: "t",
   explanation: "e",
   evidence: "Contains: peanuts",
   profileMatch: "peanut",

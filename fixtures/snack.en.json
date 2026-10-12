@@ -17,20 +17,21 @@
   "quick": {
     "readable": true,
     "labelType": "food",
-    "productName": "Trailhead Crunch Honey Peanut Bar"
+    "productName": "TRAILHEAD CRUNCH Honey Peanut Bar"
   },
   "analysis": {
     "labelType": "food",
     "productName": "Trailhead Crunch Honey Peanut Bar",
     "readable": true,
     "language": "en",
-    "summary": "This is a honey peanut granola-style bar. Peanuts are a main ingredient, which matters most for your peanut allergy. It also has honey, and a cross-contact warning for tree nuts.",
+    "summary": "This is a honey peanut snack bar. It has peanuts as a main ingredient, so it is not safe for your peanut allergy. It also has honey, which conflicts with a vegan diet, and a tree nut cross-contact warning.",
     "personalFlags": [
       {
         "severity": "danger",
         "kind": "allergen",
         "title": "Contains peanuts",
-        "explanation": "Peanuts are listed as an ingredient and in the allergen statement. This conflicts with your peanut allergy.",
+        "stickerTitle": "Contains peanuts",
+        "explanation": "Peanuts and peanut butter are listed as ingredients, and the label states it contains peanuts. This matches your peanut allergy.",
         "evidence": "CONTAINS: PEANUTS, SOY.",
         "profileMatch": "peanut"
       },
@@ -38,15 +39,17 @@
         "severity": "caution",
         "kind": "allergen",
         "title": "May contain tree nuts",
-        "explanation": "The label says it may contain tree nuts and is made in a facility that processes them. This is a cross-contact risk for your tree nut allergy.",
+        "stickerTitle": "May contain tree nuts",
+        "explanation": "The label says it may contain tree nuts and is made in a facility that also processes them. This is a cross-contact risk for your tree nut allergy.",
         "evidence": "May contain tree nuts, milk, wheat and sesame.",
         "profileMatch": "tree nuts"
       },
       {
         "severity": "caution",
         "kind": "diet",
-        "title": "Contains honey",
-        "explanation": "Honey is made by bees and is not vegan.",
+        "title": "Honey is not vegan",
+        "stickerTitle": "Contains honey",
+        "explanation": "Honey is made by bees and is an animal product. It conflicts with a vegan diet.",
         "evidence": "honey",
         "profileMatch": "vegan"
       },
@@ -54,7 +57,8 @@
         "severity": "info",
         "kind": "diet",
         "title": "May contain milk",
-        "explanation": "A cross-contact line mentions milk. This may matter for a vegan diet; check with the maker if unsure.",
+        "stickerTitle": "May contain milk",
+        "explanation": "The label says it may contain milk through cross-contact. This could matter for a vegan diet. Check with the maker if this is important to you.",
         "evidence": "May contain tree nuts, milk, wheat and sesame.",
         "profileMatch": "vegan"
       },
@@ -62,7 +66,8 @@
         "severity": "info",
         "kind": "diet",
         "title": "Natural flavor source unclear",
-        "explanation": "Natural flavor can come from animal sources. Check with the maker if you want to be sure it is vegan.",
+        "stickerTitle": "Natural flavor unclear",
+        "explanation": "Natural flavor can come from plants or animals. Check with the maker to confirm it fits a vegan diet.",
         "evidence": "natural flavor",
         "profileMatch": "vegan"
       }
@@ -70,13 +75,14 @@
     "labelWarnings": [
       {
         "severity": "caution",
-        "text": "May contain milk, wheat, sesame and tree nuts; made in a facility that processes these allergens.",
+        "stickerTitle": "Allergen cross-contact",
+        "text": "May contain tree nuts, milk, wheat and sesame, and is made in a facility that also processes these allergens.",
         "evidence": "Made in a facility that also processes these allergens."
       }
     ],
     "keyFacts": [
       {
-        "label": "Allergens listed",
+        "label": "Contains",
         "value": "Peanuts, soy"
       },
       {
@@ -85,15 +91,15 @@
       },
       {
         "label": "Serving",
-        "value": "1 bar (40g), Calories 190"
+        "value": "1 bar (40g), 190 calories"
       },
       {
-        "label": "Storage",
-        "value": "Store in a cool, dry place."
+        "label": "Total sugars",
+        "value": "11g"
       }
     ],
     "safeForYou": "no",
     "confidence": "high",
-    "disclaimer": "If you have a severe allergy, avoid this product. Ask your doctor or pharmacist if you are unsure about anything."
+    "disclaimer": "This explains the label and is not medical advice. If you are unsure, ask a doctor or pharmacist."
   }
 }

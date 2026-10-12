@@ -24,12 +24,13 @@
     "productName": "WellPath Ibuprofen 200 mg",
     "readable": true,
     "language": "es",
-    "summary": "Es ibuprofeno de 200 mg, un antiinflamatorio (AINE) para dolor y fiebre. Para ti importa sobre todo que tomas warfarina: la etiqueta avisa de más riesgo de sangrado. Confirma con un farmacéutico antes de usarlo.",
+    "summary": "Es ibuprofeno de 200 mg (un AINE) para el dolor y la fiebre. Como tomas warfarina, el riesgo de sangrado de estómago es importante: confírmalo con un farmacéutico. Además, el ácido esteárico puede ser de origen animal.",
     "personalFlags": [
       {
         "severity": "caution",
         "kind": "interaction",
-        "title": "Ibuprofeno y warfarina",
+        "title": "Ibuprofeno (AINE) con warfarina",
+        "stickerTitle": "Interactúa con warfarina",
         "explanation": "El ibuprofeno es un AINE y la etiqueta advierte de más riesgo de sangrado con anticoagulantes. Confirma con un farmacéutico o médico antes de usarlo.",
         "evidence": "take a blood thinning (anticoagulant) or steroid drug",
         "profileMatch": "warfarin"
@@ -37,54 +38,59 @@
       {
         "severity": "info",
         "kind": "diet",
-        "title": "Ácido esteárico: origen incierto",
-        "explanation": "El ácido esteárico puede ser de origen animal. Si sigues dieta vegana, consulta con el fabricante.",
+        "title": "Ácido esteárico: posible origen animal",
+        "stickerTitle": "Posible origen animal",
+        "explanation": "El ácido esteárico puede provenir de animales o de plantas. Consulta con el fabricante si sigues una dieta vegana.",
         "evidence": "stearic acid",
         "profileMatch": "vegan"
       }
     ],
     "labelWarnings": [
       {
-        "severity": "danger",
-        "text": "Puede causar sangrado de estómago grave, con más riesgo en ciertos casos.",
-        "evidence": "may cause severe stomach bleeding"
-      },
-      {
-        "severity": "danger",
-        "text": "Los AINE aumentan el riesgo de infarto e ictus, que pueden ser mortales.",
-        "evidence": "increase the risk of heart attack, heart failure, and stroke. These can be fatal."
+        "severity": "caution",
+        "stickerTitle": "Sangrado de estómago",
+        "text": "Este AINE puede causar sangrado grave de estómago, sobre todo si se usa más de lo indicado o por más tiempo.",
+        "evidence": "This product contains an NSAID, which may cause severe stomach bleeding."
       },
       {
         "severity": "caution",
-        "text": "Puede causar reacción alérgica grave, sobre todo si eres alérgico a la aspirina.",
-        "evidence": "Ibuprofen may cause a severe allergic reaction"
+        "stickerTitle": "Riesgo cardíaco y ACV",
+        "text": "Los AINE pueden aumentar el riesgo de infarto, insuficiencia cardíaca y derrame cerebral.",
+        "evidence": "NSAIDs, except aspirin, increase the risk of heart attack, heart failure, and stroke."
+      },
+      {
+        "severity": "caution",
+        "stickerTitle": "Alergia grave posible",
+        "text": "Puede causar una reacción alérgica grave, sobre todo si eres alérgico a la aspirina.",
+        "evidence": "Ibuprofen may cause a severe allergic reaction, especially in people allergic to aspirin."
       },
       {
         "severity": "info",
-        "text": "Mantener fuera del alcance de los niños. En caso de sobredosis, busca ayuda médica.",
+        "stickerTitle": "Lejos de los niños",
+        "text": "Mantén fuera del alcance de los niños. En caso de sobredosis, busca ayuda médica.",
         "evidence": "Keep out of reach of children."
       }
     ],
     "keyFacts": [
       {
         "label": "Principio activo",
-        "value": "Ibuprofen 200 mg (NSAID) en cada tableta"
+        "value": "Ibuprofen 200 mg (NSAID)"
       },
       {
         "label": "Para qué sirve",
         "value": "Pain reliever/fever reducer"
       },
       {
-        "label": "Ingredientes inactivos",
-        "value": "carnauba wax, corn starch, hypromellose, stearic acid, titanium dioxide, otros"
+        "label": "Dosis indicada (adultos)",
+        "value": "take 1 tablet every 4 to 6 hours while symptoms persist"
       },
       {
-        "label": "Distribuido por",
-        "value": "WellPath Pharmacy Brands, Columbus, OH"
+        "label": "Máximo en 24 horas",
+        "value": "do not exceed 6 tablets in 24 hours, unless directed by a doctor"
       }
     ],
     "safeForYou": "check",
     "confidence": "high",
-    "disclaimer": "Esto explica la etiqueta y no es consejo médico; consulta a un farmacéutico o médico si tienes dudas. En caso de sobredosis, llama a emergencias o a toxicología."
+    "disclaimer": "Esto explica la etiqueta y no es consejo médico; consulta a un farmacéutico o médico, sobre todo por la warfarina. En caso de sobredosis, llama a emergencias o a toxicología de inmediato."
   }
 }

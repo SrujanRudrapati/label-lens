@@ -21,30 +21,34 @@
   },
   "analysis": {
     "labelType": "household",
-    "productName": "BrightHome Concentrated Regular Bleach",
+    "productName": "BRIGHTHOME Concentrated Regular Bleach",
     "readable": true,
     "language": "en",
-    "summary": "This is a concentrated household bleach with 6.0% sodium hypochlorite. The label marks it DANGER and corrosive to eyes and skin. Nothing on the label matches your allergies, warfarin, or vegan diet, but it is not for eating or drinking.",
+    "summary": "This is a concentrated household bleach with sodium hypochlorite 6.0%. The label marks it DANGER and corrosive. Nothing on the label matches your allergies, warfarin, or vegan diet, but follow the safety steps.",
     "personalFlags": [],
     "labelWarnings": [
       {
         "severity": "danger",
-        "text": "Corrosive. Causes lasting eye damage and skin burns. Harmful if swallowed.",
-        "evidence": "CORROSIVE. Causes irreversible eye damage and skin burns. Harmful if swallowed."
+        "stickerTitle": "Corrosive: eye and skin",
+        "text": "Causes irreversible eye damage and skin burns. Harmful if swallowed. Wear eye protection and rubber gloves.",
+        "evidence": "CORROSIVE. Causes irreversible eye damage and skin burns."
       },
       {
         "severity": "danger",
-        "text": "Never mix with ammonia, vinegar, toilet bowl cleaners, rust removers or other acids. Mixing makes hazardous gases.",
-        "evidence": "Do not mix with ammonia, vinegar, toilet bowl cleaners, rust removers or other acids. Mixing releases hazardous gases."
-      },
-      {
-        "severity": "caution",
-        "text": "Wear eye protection and rubber gloves. Use only with good ventilation.",
-        "evidence": "Wear protective eyewear and rubber gloves when handling."
+        "stickerTitle": "Never mix with acids",
+        "text": "Do not mix with ammonia, vinegar, toilet bowl cleaners, rust removers or other acids. Mixing releases hazardous gases.",
+        "evidence": "Do not mix with ammonia, vinegar, toilet bowl cleaners, rust removers or other acids."
       },
       {
         "severity": "info",
-        "text": "Keep out of reach of children. Store cool and dry, away from sun and heat.",
+        "stickerTitle": "Use with ventilation",
+        "text": "Use only in a well-ventilated area.",
+        "evidence": "Use only in a well-ventilated area."
+      },
+      {
+        "severity": "info",
+        "stickerTitle": "Keep away from children",
+        "text": "Keep out of reach of children. Store cool and dry, away from sunlight and heat.",
         "evidence": "KEEP OUT OF REACH OF CHILDREN."
       }
     ],
@@ -54,8 +58,8 @@
         "value": "Sodium hypochlorite 6.0%"
       },
       {
-        "label": "Key hazard",
-        "value": "DANGER: corrosive; do not mix with acids or ammonia"
+        "label": "Signal word",
+        "value": "DANGER, corrosive"
       },
       {
         "label": "If in eyes",
@@ -68,6 +72,6 @@
     ],
     "safeForYou": "yes",
     "confidence": "high",
-    "disclaimer": "If this product is swallowed or gets in the eyes, call local emergency services or poison control right away and keep the label with you."
+    "disclaimer": "If someone swallows this product, call local emergency services or poison control right away and keep the label with you."
   }
 }

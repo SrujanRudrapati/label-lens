@@ -13,12 +13,13 @@ const validAnalysis = {
       severity: "danger",
       kind: "allergen",
       title: "Contains peanuts",
+      stickerTitle: "Contains peanuts",
       explanation: "You listed a peanut allergy.",
       evidence: "Contains: peanuts, soy",
       profileMatch: "peanut",
     },
   ],
-  labelWarnings: [{ severity: "info", text: "Keep dry.", evidence: "Store in a dry place" }],
+  labelWarnings: [{ severity: "info", stickerTitle: "Keep dry", text: "Keep dry.", evidence: "Store in a dry place" }],
   keyFacts: [{ label: "Serving", value: "30 g" }],
   safeForYou: "no",
   confidence: "high",
@@ -46,7 +47,7 @@ describe("Analysis", () => {
   });
 
   test("rejects a label warning with missing evidence", () => {
-    const bad = { ...validAnalysis, labelWarnings: [{ severity: "info", text: "Keep dry." }] };
+    const bad = { ...validAnalysis, labelWarnings: [{ severity: "info", stickerTitle: "Keep dry", text: "Keep dry." }] };
     expect(Analysis.safeParse(bad).success).toBe(false);
   });
 

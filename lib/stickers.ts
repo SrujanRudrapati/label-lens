@@ -6,6 +6,8 @@ export interface StickerItem {
   id: string;
   severity: Severity;
   title: string;
+  /** Short text shown on the sticker itself; the full sentence lives in the evidence sheet. */
+  stickerTitle: string;
   explanation: string;
   /** Exact text read from the label. Every sticker leads to one. */
   evidence: string;
@@ -37,6 +39,7 @@ export function stickersFrom(analysis: Analysis): StickerItem[] {
     id: `flag-${i}`,
     severity: f.severity,
     title: f.title,
+    stickerTitle: f.stickerTitle,
     explanation: f.explanation,
     evidence: f.evidence,
     profileMatch: f.profileMatch || null,
@@ -46,6 +49,7 @@ export function stickersFrom(analysis: Analysis): StickerItem[] {
     id: `label-${i}`,
     severity: w.severity,
     title: w.text,
+    stickerTitle: w.stickerTitle,
     explanation: "",
     evidence: w.evidence,
     profileMatch: null,

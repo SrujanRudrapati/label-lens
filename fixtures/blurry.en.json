@@ -17,19 +17,19 @@
   "quick": {
     "readable": false,
     "labelType": "food",
-    "productName": "Trail Head Crunch Honey Peanut Bar"
+    "productName": null
   },
   "analysis": {
     "labelType": "food",
-    "productName": "Trailhead Crunch Honey Peanut Bar",
+    "productName": null,
     "readable": false,
-    "language": "en",
-    "summary": "This looks like a snack bar, but the photo is too blurry to read the ingredients and allergen lines with certainty. Please retake it: hold the phone steady, use more light, and move closer to the text.",
+    "language": "English",
+    "summary": "The photo is too blurry to read the ingredients and allergen lines with confidence. Please retake it holding the phone steady, with more light, and closer to the label. Until then, don't rely on this scan for your allergies.",
     "personalFlags": [],
     "labelWarnings": [],
     "keyFacts": [],
     "safeForYou": "unknown",
     "confidence": "low",
-    "disclaimer": "Until you can read the label clearly, do not rely on this result. Check the printed allergen and ingredient lines yourself or ask the maker or a pharmacist."
+    "disclaimer": "Because of your allergies, please don't eat this product until you can read the full label clearly or check with the maker."
   }
 }

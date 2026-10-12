@@ -26,10 +26,10 @@ export function Sticker({ item, index, open, onOpen }: StickerProps) {
         aria-label={stickerAriaLabel(item)}
         aria-expanded={open}
         onClick={(e) => onOpen(item, e.currentTarget)}
-        className={`flex min-h-12 max-w-[17rem] items-center gap-2 rounded-sticker px-3 py-2 text-left text-sticker leading-tight font-bold shadow-sticker ring-[3px] ring-white aria-expanded:outline-3 aria-expanded:outline-offset-2 aria-expanded:outline-ink ${TONE_CLASS[item.severity]}`}
+        className={`flex min-h-12 max-w-[min(100%,17rem)] items-center gap-2 rounded-sticker px-3 py-2 text-left text-sticker leading-tight font-bold shadow-sticker ring-[3px] ring-white aria-expanded:outline-3 aria-expanded:outline-offset-2 aria-expanded:outline-ink ${TONE_CLASS[item.severity]}`}
       >
         <Pictogram severity={item.severity} />
-        <span>{item.title}</span>
+        <span>{item.stickerTitle}</span>
       </button>
     </li>
   );

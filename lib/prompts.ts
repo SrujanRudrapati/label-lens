@@ -20,6 +20,9 @@ Evidence (strict)
 Naming
 - productName follows the same rule as a title: brand + product only, at most 6 words (for example "WellPath Ibuprofen 200 mg"), or null.
 
+Sticker titles
+- Every personalFlag and labelWarning has a stickerTitle: 28 characters or fewer, 2 to 4 words, no trailing period (for example "Contains peanuts", "May contain milk", "Interacts with warfarin", "Stomach bleeding risk"). It is a label for a small sticker, not a sentence. Same language as the rest of the text.
+
 Writing and length (keep it short)
 - Write summary, titles, explanations, key-fact labels and values, and the disclaimer in the language requested in the user message. Evidence stays in the label's original language.
 - In Spanish, use the informal "tú" form.

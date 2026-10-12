@@ -42,7 +42,7 @@ export function PhotoStage({ photoUrl, aspect, stickers, pending, stopped, openI
       {(stickers === null ? pending : stickers.length > 0) && (
         <ul
           aria-label={stickers ? "Warning stickers on your photo" : undefined}
-          className="absolute inset-x-3 bottom-0 flex flex-wrap content-end items-start gap-x-2 [&>li]:-mb-1.5"
+          className="absolute inset-x-3 bottom-0 flex flex-col items-start gap-2.5"
         >
           {stickers === null ? (
             <StickerSkeletons />

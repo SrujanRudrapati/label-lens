@@ -17,20 +17,21 @@
   "quick": {
     "readable": true,
     "labelType": "food",
-    "productName": "Trailhead Crunch Honey Peanut Bar"
+    "productName": "TRAILHEAD CRUNCH Honey Peanut Bar"
   },
   "analysis": {
     "labelType": "food",
     "productName": "Trailhead Crunch Honey Peanut Bar",
     "readable": true,
     "language": "es",
-    "summary": "Es una barra de avena con cacahuetes y miel. Contiene cacahuetes, que son un alérgeno tuyo, y también puede contener frutos secos. Además lleva miel, que no es vegana.",
+    "summary": "Es una barra de avena con cacahuates y miel. Contiene cacahuates, que son tu alergia, así que no es segura para ti. También puede contener frutos secos y tiene miel, que no es vegana.",
     "personalFlags": [
       {
         "severity": "danger",
         "kind": "allergen",
-        "title": "Contiene cacahuete",
-        "explanation": "Los cacahuetes son un ingrediente de esta barra y figuran en el aviso de alérgenos. No es seguro para ti.",
+        "title": "Contiene cacahuates (tu alergia)",
+        "stickerTitle": "Contiene cacahuates",
+        "explanation": "Los cacahuates aparecen como ingrediente y en la lista de alérgenos. Evita este producto.",
         "evidence": "CONTAINS: PEANUTS, SOY.",
         "profileMatch": "peanut"
       },
@@ -38,46 +39,51 @@
         "severity": "caution",
         "kind": "allergen",
         "title": "Puede contener frutos secos",
-        "explanation": "La etiqueta dice que puede contener frutos secos y que se hace en una instalación que los procesa. Hay riesgo de contacto cruzado.",
+        "stickerTitle": "Puede tener frutos secos",
+        "explanation": "La etiqueta avisa de posible contaminación cruzada con frutos secos de árbol.",
         "evidence": "May contain tree nuts, milk, wheat and sesame.",
         "profileMatch": "tree nuts"
       },
       {
         "severity": "caution",
         "kind": "diet",
-        "title": "Contiene miel",
-        "explanation": "La miel es un producto de origen animal y no es vegana. Esta barra no encaja con tu dieta.",
+        "title": "La miel no es vegana",
+        "stickerTitle": "Contiene miel",
+        "explanation": "La miel es un producto de origen animal y entra en conflicto con tu dieta vegana.",
         "evidence": "honey",
         "profileMatch": "vegan"
       },
       {
         "severity": "info",
         "kind": "diet",
-        "title": "Leche posible por contacto cruzado",
-        "explanation": "La etiqueta indica que puede contener leche. Consulta con el fabricante si es importante para tu dieta vegana.",
-        "evidence": "May contain tree nuts, milk, wheat and sesame.",
+        "title": "Posible origen animal",
+        "stickerTitle": "Origen dudoso: sabor natural",
+        "explanation": "El \"natural flavor\" puede venir de fuentes animales. Consulta con el fabricante si te importa.",
+        "evidence": "natural flavor",
         "profileMatch": "vegan"
       },
       {
         "severity": "info",
         "kind": "diet",
-        "title": "Sabor natural de origen incierto",
-        "explanation": "El \"natural flavor\" puede ser de origen animal. Consulta con el fabricante si quieres estar seguro.",
-        "evidence": "natural flavor",
+        "title": "Posible leche por contaminación",
+        "stickerTitle": "Puede contener leche",
+        "explanation": "La etiqueta indica que puede contener leche, lo que podría ser un problema para tu dieta vegana. Consulta con el fabricante.",
+        "evidence": "May contain tree nuts, milk, wheat and sesame.",
         "profileMatch": "vegan"
       }
     ],
     "labelWarnings": [
       {
         "severity": "caution",
-        "text": "Puede contener frutos secos, leche, trigo y sésamo; se fabrica en una instalación que procesa estos alérgenos.",
+        "stickerTitle": "Hecho en planta con alérgenos",
+        "text": "Se fabrica en una instalación que también procesa otros alérgenos.",
         "evidence": "Made in a facility that also processes these allergens."
       }
     ],
     "keyFacts": [
       {
         "label": "Alérgenos declarados",
-        "value": "Cacahuetes, soja"
+        "value": "Cacahuates, soya"
       },
       {
         "label": "Puede contener",
@@ -88,8 +94,8 @@
         "value": "1 barra (40 g), 190 calorías"
       },
       {
-        "label": "Almacenamiento",
-        "value": "Guardar en un lugar fresco y seco"
+        "label": "Azúcares totales",
+        "value": "11 g"
       }
     ],
     "safeForYou": "no",

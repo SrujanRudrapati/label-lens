@@ -24,13 +24,14 @@
     "productName": "Trailhead Crunch Barra de Miel y Cacahuate",
     "readable": true,
     "language": "es",
-    "summary": "Es una barra de avena con miel y cacahuate. Contiene cacahuate, que es tu alergia, y también miel, que no va con tu dieta vegana. Puede contener nueces. No es adecuada para ti.",
+    "summary": "Es una barra de avena con miel y cacahuate. Contiene cacahuate, que es tu alergia, así que no es segura para ti. También puede contener nueces y lleva miel, que no es vegana.",
     "personalFlags": [
       {
         "severity": "danger",
         "kind": "allergen",
         "title": "Contiene cacahuate",
-        "explanation": "El cacahuate es un ingrediente de esta barra y es tu alergia. Evita este producto.",
+        "stickerTitle": "Contiene cacahuate",
+        "explanation": "El cacahuate es un ingrediente de esta barra y la etiqueta lo marca como alérgeno. Evítala.",
         "evidence": "CONTIENE: CACAHUATE, SOYA.",
         "profileMatch": "peanut"
       },
@@ -38,7 +39,8 @@
         "severity": "caution",
         "kind": "allergen",
         "title": "Puede contener nueces",
-        "explanation": "La etiqueta avisa que puede contener nueces y que se hace en una planta que las procesa. Hay riesgo de contaminación cruzada.",
+        "stickerTitle": "Puede contener nueces",
+        "explanation": "La etiqueta avisa de posible contacto cruzado con nueces, que son frutos secos de cáscara.",
         "evidence": "Puede contener nueces, leche, trigo y ajonjolí.",
         "profileMatch": "tree nuts"
       },
@@ -46,7 +48,8 @@
         "severity": "caution",
         "kind": "diet",
         "title": "Contiene miel",
-        "explanation": "La miel es un producto de origen animal y no es vegana.",
+        "stickerTitle": "Contiene miel",
+        "explanation": "La miel viene de las abejas, por lo que no es compatible con una dieta vegana.",
         "evidence": "miel, jarabe de arroz integral",
         "profileMatch": "vegan"
       },
@@ -54,15 +57,17 @@
         "severity": "info",
         "kind": "diet",
         "title": "Puede contener leche",
-        "explanation": "La línea de contaminación cruzada menciona leche. Consulta con el fabricante si te importa.",
+        "stickerTitle": "Puede contener leche",
+        "explanation": "Posible contacto cruzado con leche. Consulta al fabricante si sigues una dieta vegana estricta.",
         "evidence": "Puede contener nueces, leche, trigo y ajonjolí.",
         "profileMatch": "vegan"
       },
       {
         "severity": "info",
         "kind": "diet",
-        "title": "Saborizante natural: origen dudoso",
-        "explanation": "Puede ser de origen animal. Consulta con el fabricante para confirmarlo.",
+        "title": "Saborizante de origen incierto",
+        "stickerTitle": "Saborizante incierto",
+        "explanation": "El saborizante natural podría ser de origen animal. Consulta al fabricante.",
         "evidence": "saborizante natural",
         "profileMatch": "vegan"
       }
@@ -70,23 +75,19 @@
     "labelWarnings": [
       {
         "severity": "caution",
-        "text": "Contiene soya como alérgeno.",
-        "evidence": "CONTIENE: CACAHUATE, SOYA."
-      },
-      {
-        "severity": "caution",
-        "text": "Hecha en una planta que procesa nueces, leche, trigo y ajonjolí.",
+        "stickerTitle": "Contacto cruzado alérgenos",
+        "text": "Se elabora en una planta que también procesa nueces, leche, trigo y ajonjolí.",
         "evidence": "Elaborado en una planta que también procesa estos alérgenos."
       }
     ],
     "keyFacts": [
       {
-        "label": "Alérgenos declarados",
-        "value": "CACAHUATE, SOYA"
+        "label": "Alérgenos",
+        "value": "Cacahuate, soya"
       },
       {
         "label": "Puede contener",
-        "value": "nueces, leche, trigo y ajonjolí"
+        "value": "Nueces, leche, trigo y ajonjolí"
       },
       {
         "label": "Porción",
@@ -94,11 +95,11 @@
       },
       {
         "label": "Conservación",
-        "value": "Consérvese en un lugar fresco y seco"
+        "value": "En un lugar fresco y seco"
       }
     ],
     "safeForYou": "no",
     "confidence": "high",
-    "disclaimer": "Esto explica la etiqueta y no es consejo médico. Si tienes dudas sobre tu alergia, pregunta a tu médico o farmacéutico."
+    "disclaimer": "Esto explica la etiqueta y no es consejo médico. Si tienes dudas sobre tu alergia, consulta a tu médico."
   }
 }

@@ -14,6 +14,7 @@ export const PersonalFlag = z.object({
   severity: Severity,
   kind: z.enum(["allergen", "interaction", "diet", "other"]),
   title: z.string().max(100),
+  stickerTitle: z.string().min(1).max(40),
   explanation: z.string().max(240),
   evidence: z.string().min(1).max(300),
   profileMatch: z.string().max(100),
@@ -22,6 +23,7 @@ export type PersonalFlag = z.infer<typeof PersonalFlag>;
 
 export const LabelWarning = z.object({
   severity: Severity,
+  stickerTitle: z.string().min(1).max(40),
   text: z.string().max(160),
   evidence: z.string().min(1).max(300),
 });

@@ -2,7 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 
 // Screenshots for the design critique pass. Run with: npx playwright test e2e/screens.spec.ts
 const VIEWPORTS = [
-  { name: "375", width: 375, height: 812 },
+  { name: "390", width: 390, height: 844 },
   { name: "1280", width: 1280, height: 800 },
 ] as const;
 

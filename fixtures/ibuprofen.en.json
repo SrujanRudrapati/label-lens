@@ -23,14 +23,15 @@
     "labelType": "medicine",
     "productName": "WellPath Ibuprofen 200 mg",
     "readable": true,
-    "language": "en",
-    "summary": "This is ibuprofen 200 mg, an NSAID pain reliever and fever reducer. The most important point for you is the warning about blood thinners, since you take warfarin. One inactive ingredient may need a vegan check.",
+    "language": "English",
+    "summary": "This is ibuprofen 200 mg, an NSAID pain reliever and fever reducer. It can raise bleeding risk with blood thinners like warfarin, so check with a pharmacist before use. One inactive ingredient may be animal-derived for a vegan diet.",
     "personalFlags": [
       {
         "severity": "caution",
         "kind": "interaction",
-        "title": "Ibuprofen (NSAID) and warfarin",
-        "explanation": "NSAIDs like ibuprofen can raise bleeding risk with blood thinners such as warfarin. Confirm with a pharmacist or doctor before using this.",
+        "title": "Ibuprofen (NSAID) with warfarin",
+        "stickerTitle": "Interacts with warfarin",
+        "explanation": "Ibuprofen is an NSAID. The label says stomach bleeding risk is higher with blood thinners. Confirm with a pharmacist or doctor before using.",
         "evidence": "take a blood thinning (anticoagulant) or steroid drug",
         "profileMatch": "warfarin"
       },
@@ -38,7 +39,8 @@
         "severity": "info",
         "kind": "diet",
         "title": "Stearic acid may be animal-derived",
-        "explanation": "Stearic acid can come from animal or plant sources. The label does not say which. Check with the maker if you need it to be vegan.",
+        "stickerTitle": "Check stearic acid source",
+        "explanation": "Stearic acid can come from animal or plant sources. The label does not say which. Check with the maker if you follow a vegan diet.",
         "evidence": "stearic acid",
         "profileMatch": "vegan"
       }
@@ -46,22 +48,26 @@
     "labelWarnings": [
       {
         "severity": "danger",
-        "text": "NSAIDs may cause severe stomach bleeding, more likely with age 60+, ulcers, or alcohol.",
-        "evidence": "This product contains an NSAID, which may cause severe stomach bleeding."
+        "stickerTitle": "Stomach bleeding risk",
+        "text": "This NSAID may cause severe stomach bleeding. Risk is higher with age 60+, ulcers, alcohol, or taking more than directed.",
+        "evidence": "which may cause severe stomach bleeding"
       },
       {
         "severity": "danger",
-        "text": "NSAIDs can increase the risk of heart attack, heart failure, and stroke, which can be fatal.",
-        "evidence": "NSAIDs, except aspirin, increase the risk of heart attack, heart failure, and stroke. These can be fatal."
+        "stickerTitle": "Heart attack and stroke risk",
+        "text": "NSAIDs can raise the risk of heart attack, heart failure, and stroke. The risk is higher with more or longer use than directed.",
+        "evidence": "increase the risk of heart attack, heart failure, and stroke"
       },
       {
         "severity": "caution",
-        "text": "May cause a severe allergic reaction, especially in people allergic to aspirin. Stop use and get help.",
-        "evidence": "Ibuprofen may cause a severe allergic reaction, especially in people allergic to aspirin."
+        "stickerTitle": "Severe allergic reaction",
+        "text": "Ibuprofen may cause a severe allergic reaction, especially in people allergic to aspirin. Stop use and seek medical help if it happens.",
+        "evidence": "Ibuprofen may cause a severe allergic reaction"
       },
       {
         "severity": "info",
-        "text": "Keep out of reach of children.",
+        "stickerTitle": "Keep away from children",
+        "text": "Keep out of reach of children. In case of overdose, get medical help or contact a Poison Control Center right away.",
         "evidence": "Keep out of reach of children."
       }
     ],
@@ -75,12 +81,16 @@
         "value": "Pain reliever/fever reducer"
       },
       {
-        "label": "Ask a doctor first if",
-        "value": "taking any other drug, or under a doctor's care for a serious condition"
+        "label": "Directions (adults, 12+)",
+        "value": "Take 1 tablet every 4 to 6 hours while symptoms persist; do not take more than directed"
+      },
+      {
+        "label": "Inactive ingredients",
+        "value": "carnauba wax, colloidal silicon dioxide, corn starch, hypromellose, iron oxide, polyethylene glycol, stearic acid, titanium dioxide"
       }
     ],
     "safeForYou": "check",
     "confidence": "high",
-    "disclaimer": "This explains the label and is not medical advice. Ask a pharmacist or doctor about anything you are unsure of. In case of overdose, call local emergency services or Poison Control right away."
+    "disclaimer": "This explains the label and is not medical advice. Ask a pharmacist or doctor about taking this with warfarin; in case of overdose, call local emergency services or poison control right away."
   }
 }

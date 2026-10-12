@@ -21,15 +21,15 @@
   },
   "analysis": {
     "labelType": "food",
-    "productName": "Trailhead Crunch Honey Peanut Bar",
+    "productName": null,
     "readable": false,
     "language": "es",
-    "summary": "La foto está muy borrosa y no puedo leer la lista de ingredientes ni los avisos de alérgenos con seguridad. Vuelve a tomar la foto con la cámara firme, más luz y más cerca del texto.",
+    "summary": "La foto está muy borrosa y no se puede leer con seguridad la lista de ingredientes ni los alérgenos. Para tu seguridad no voy a adivinar. Sostén el móvil firme, usa más luz y acércate a la etiqueta; luego prueba otra vez.",
     "personalFlags": [],
     "labelWarnings": [],
     "keyFacts": [],
     "safeForYou": "unknown",
     "confidence": "low",
-    "disclaimer": "Mientras no se pueda leer bien la etiqueta, no la uses para decidir si algo es seguro para ti; consulta con el fabricante o con un farmacéutico si tienes dudas."
+    "disclaimer": "Como tienes alergias, no consumas este producto hasta poder leer bien la etiqueta completa."
   }
 }

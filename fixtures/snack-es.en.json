@@ -23,14 +23,15 @@
     "labelType": "food",
     "productName": "Trailhead Crunch Honey Peanut Bar",
     "readable": true,
-    "language": "en",
-    "summary": "This is a honey and peanut snack bar. It lists peanuts as an ingredient, which matters most for your peanut allergy. It also has honey and a tree nut cross-contact warning.",
+    "language": "Spanish",
+    "summary": "This is a honey and peanut snack bar. It is not safe for you: peanuts are a main ingredient, and it may also have tree nuts. It also contains honey, which is not vegan.",
     "personalFlags": [
       {
         "severity": "danger",
         "kind": "allergen",
-        "title": "Contains peanut",
-        "explanation": "Peanuts are a main ingredient and are also listed in the allergen statement. This bar is not safe for a peanut allergy.",
+        "title": "Contains peanuts",
+        "stickerTitle": "Contains peanuts",
+        "explanation": "Peanuts are listed as an ingredient and in the allergen statement. This matches your peanut allergy.",
         "evidence": "CONTIENE: CACAHUATE, SOYA.",
         "profileMatch": "peanut"
       },
@@ -38,15 +39,17 @@
         "severity": "caution",
         "kind": "allergen",
         "title": "May contain tree nuts",
-        "explanation": "The label says it may contain tree nuts and is made in a plant that also processes them. This is a cross-contact risk.",
+        "stickerTitle": "May contain tree nuts",
+        "explanation": "The label says it may contain nuts and is made in a plant that also processes them. This is a cross-contact risk for your tree nut allergy.",
         "evidence": "Puede contener nueces, leche, trigo y ajonjolí.",
         "profileMatch": "tree nuts"
       },
       {
         "severity": "caution",
         "kind": "diet",
-        "title": "Contains honey",
-        "explanation": "Honey is made by bees, so it conflicts with a vegan diet.",
+        "title": "Honey is not vegan",
+        "stickerTitle": "Contains honey",
+        "explanation": "Honey comes from bees, so it conflicts with a vegan diet.",
         "evidence": "miel",
         "profileMatch": "vegan"
       },
@@ -54,7 +57,8 @@
         "severity": "info",
         "kind": "diet",
         "title": "May contain milk",
-        "explanation": "Milk is listed as a possible cross-contact allergen. Check with the maker if this matters for your vegan diet.",
+        "stickerTitle": "May contain milk",
+        "explanation": "The label says it may contain milk from cross-contact. This could matter for a vegan diet. Check with the maker if unsure.",
         "evidence": "Puede contener nueces, leche, trigo y ajonjolí.",
         "profileMatch": "vegan"
       },
@@ -62,7 +66,8 @@
         "severity": "info",
         "kind": "diet",
         "title": "Natural flavor source unclear",
-        "explanation": "Natural flavor can come from animal sources. Check with the maker if you want to be sure it is vegan.",
+        "stickerTitle": "Natural flavor unclear",
+        "explanation": "Natural flavor can come from plant or animal sources. The label does not say which. Check with the maker.",
         "evidence": "saborizante natural",
         "profileMatch": "vegan"
       }
@@ -70,13 +75,14 @@
     "labelWarnings": [
       {
         "severity": "caution",
+        "stickerTitle": "Other allergens possible",
         "text": "Made in a plant that also processes nuts, milk, wheat and sesame.",
         "evidence": "Elaborado en una planta que también procesa estos alérgenos."
       }
     ],
     "keyFacts": [
       {
-        "label": "Allergens listed",
+        "label": "Allergens",
         "value": "Cacahuate (peanut), soya (soy)"
       },
       {
@@ -85,15 +91,15 @@
       },
       {
         "label": "Serving",
-        "value": "1 bar (40 g), 190 kcal"
+        "value": "1 barra (40 g), 190 kcal"
       },
       {
         "label": "Storage",
-        "value": "Keep in a cool, dry place"
+        "value": "Consérvese en un lugar fresco y seco"
       }
     ],
     "safeForYou": "no",
     "confidence": "high",
-    "disclaimer": "This explains the label and is not medical advice. Ask a pharmacist or doctor if you are unsure about anything."
+    "disclaimer": "If you have a severe allergy, avoid this product and ask a doctor or pharmacist if you are unsure."
   }
 }
