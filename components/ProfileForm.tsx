@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
 import type { Profile } from "@/lib/schema";
 
 type ListKey = "allergies" | "medications" | "diet";
@@ -32,9 +32,10 @@ interface ListFieldProps {
   onDraft: (value: string) => void;
   onAdd: (value: string) => void;
   onRemove: (item: string) => void;
+  inputRef: (el: HTMLInputElement | null) => void;
 }
 
-function ListField({ id, field, items, draft, onDraft, onAdd, onRemove }: ListFieldProps) {
+function ListField({ id, field, items, draft, onDraft, onAdd, onRemove, inputRef }: ListFieldProps) {
   const open = field.suggestions.filter((s) => !items.some((x) => x.toLowerCase() === s));
   return (
     <fieldset className="flex flex-col gap-2">
@@ -64,6 +65,7 @@ function ListField({ id, field, items, draft, onDraft, onAdd, onRemove }: ListFi
         </label>
         <input
           id={id}
+          ref={inputRef}
           value={draft}
           maxLength={MAX_ITEM_CHARS}
           placeholder={field.hint}
@@ -105,15 +107,22 @@ interface ProfileFormProps {
 export function ProfileForm({ initial, submitLabel, onSubmit, secondary }: ProfileFormProps) {
   const base = useId();
   const [draftProfile, setDraftProfile] = useState<Profile>(initial);
+  const inputs = useRef<Partial<Record<ListKey, HTMLInputElement | null>>>({});
+  const [announcement, setAnnouncement] = useState("");
   const [drafts, setDrafts] = useState<Record<ListKey, string>>({ allergies: "", medications: "", diet: "" });
 
   function add(key: ListKey, value: string) {
     setDraftProfile((p) => ({ ...p, [key]: withItem(p[key], value) }));
     setDrafts((d) => ({ ...d, [key]: "" }));
+    if (value.trim()) setAnnouncement(`Added ${value.trim()}`);
+    // The pressed quick-pick unmounts, so keep focus somewhere stable.
+    inputs.current[key]?.focus();
   }
 
   function remove(key: ListKey, item: string) {
     setDraftProfile((p) => ({ ...p, [key]: p[key].filter((x) => x !== item) }));
+    setAnnouncement(`Removed ${item}`);
+    inputs.current[key]?.focus();
   }
 
   function submit(e: FormEvent) {
@@ -134,6 +143,9 @@ export function ProfileForm({ initial, submitLabel, onSubmit, secondary }: Profi
           onDraft={(value) => setDrafts((d) => ({ ...d, [f.key]: value }))}
           onAdd={(value) => add(f.key, value)}
           onRemove={(item) => remove(f.key, item)}
+          inputRef={(el) => {
+            inputs.current[f.key] = el;
+          }}
         />
       ))}
 
@@ -150,11 +162,15 @@ export function ProfileForm({ initial, submitLabel, onSubmit, secondary }: Profi
                 onChange={() => setDraftProfile((p) => ({ ...p, language: l.code }))}
                 className="sr-only"
               />
-              {l.label}
+              <span lang={l.code}>{l.label}</span>
             </label>
           ))}
         </div>
       </fieldset>
+
+      <p className="sr-only" role="status">
+        {announcement}
+      </p>
 
       <p className="text-meta text-ink-soft">Saved on this device only. It is sent with each scan so the answer fits you, and never stored on a server.</p>
 

@@ -21,7 +21,7 @@ const ErrorBody = z.object({ error: z.object({ code: z.string(), message: z.stri
 export type QuickResponse = z.infer<typeof QuickResponse>;
 export type AnalyzeResponse = z.infer<typeof AnalyzeResponse>;
 
-const UNREADABLE_CODES = new Set(["model_output", "bad_image", "too_large"]);
+const UNREADABLE_CODES = new Set(["bad_image", "too_large"]);
 
 /** Maps an HTTP failure from our own routes to the kind of help the user needs next. */
 export function failureFromResponse(status: number, body: unknown): ScanFailure {

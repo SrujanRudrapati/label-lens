@@ -62,8 +62,22 @@ interface Bucket {
 }
 const buckets = new Map<string, Bucket>();
 
+/** Vercel sets x-vercel-forwarded-for itself; otherwise the LAST x-forwarded-for hop is the one our proxy added (earlier hops are client-controlled). */
 function clientIp(req: Request): string {
-  return req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "unknown";
+  const vercel = req.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim();
+  if (vercel) return vercel;
+  const hops = req.headers.get("x-forwarded-for")?.split(",").map((h) => h.trim()).filter(Boolean) ?? [];
+  return hops.at(-1) || req.headers.get("x-real-ip") || "unknown";
+}
+
+/** Whole-instance backstop so rotating IPs cannot drain the demo's spend cap. */
+const GLOBAL_CAPACITY = 120;
+const GLOBAL_REFILL_MS = 2_000;
+let globalBucket: Bucket = { tokens: GLOBAL_CAPACITY, updatedAt: 0 };
+
+function takeToken(prev: Bucket, capacity: number, refillMs: number, now: number): Bucket | null {
+  const refilled = Math.min(capacity, prev.tokens + Math.max(0, now - prev.updatedAt) / refillMs);
+  return refilled < 1 ? null : { tokens: refilled - 1, updatedAt: now };
 }
 
 /**
@@ -72,18 +86,20 @@ function clientIp(req: Request): string {
  */
 export function rateLimit(req: Request, now = Date.now()): void {
   if (isMock()) return;
-  if (buckets.size > MAX_TRACKED_IPS) buckets.clear();
+  // Drop the oldest tracked IP instead of clearing everyone's state.
+  if (buckets.size > MAX_TRACKED_IPS) buckets.delete(buckets.keys().next().value as string);
+
+  const nextGlobal = takeToken(globalBucket, GLOBAL_CAPACITY, GLOBAL_REFILL_MS, now);
+  if (!nextGlobal) throw new GuardError(429, "rate_limited", "Label Lens is busy right now. Try again in a minute, or use a sample.");
 
   const ip = clientIp(req);
-  const prev = buckets.get(ip) ?? { tokens: BUCKET_CAPACITY, updatedAt: now };
-  const refilled = Math.min(BUCKET_CAPACITY, prev.tokens + (now - prev.updatedAt) / REFILL_MS);
-  if (refilled < 1) {
-    buckets.set(ip, { tokens: refilled, updatedAt: now });
-    throw new GuardError(429, "rate_limited", "Too many requests. Wait a few seconds and try again.");
-  }
-  buckets.set(ip, { tokens: refilled - 1, updatedAt: now });
+  const next = takeToken(buckets.get(ip) ?? { tokens: BUCKET_CAPACITY, updatedAt: now }, BUCKET_CAPACITY, REFILL_MS, now);
+  if (!next) throw new GuardError(429, "rate_limited", "Too many requests. Wait a few seconds and try again.");
+  globalBucket = nextGlobal;
+  buckets.set(ip, next);
 }
 
 export function resetRateLimit(): void {
   buckets.clear();
+  globalBucket = { tokens: GLOBAL_CAPACITY, updatedAt: 0 };
 }

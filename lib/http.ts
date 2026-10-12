@@ -1,5 +1,5 @@
 import { ZodError, type z } from "zod";
-import { APIError } from "@anthropic-ai/sdk";
+import { APIError, APIUserAbortError } from "@anthropic-ai/sdk";
 import { ModelOutputError } from "./callTool";
 import { GuardError, rateLimit, readJson } from "./guard";
 
@@ -25,7 +25,7 @@ export function errorResponse(e: unknown): Response {
     console.error("[model-output]", e.detail);
     return jsonError(502, "model_output", "Couldn't read this label clearly. Retake the photo?");
   }
-  if (e instanceof Error && e.name === "AbortError") return jsonError(499, "aborted", "Request cancelled.");
+  if (e instanceof APIUserAbortError || (e instanceof Error && e.name === "AbortError")) return jsonError(499, "aborted", "Request cancelled.");
   if (e instanceof APIError) {
     console.error("[anthropic]", e.status, e.message);
     return jsonError(502, "upstream", "The reading service is busy. Please try again in a moment.");

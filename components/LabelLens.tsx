@@ -27,12 +27,25 @@ function SpeakerIcon() {
   );
 }
 
+const NOTICE_TEXT = {
+  unreadable: "Your saved profile couldn't be read, so nothing is being checked yet. Please enter your allergies and medicines again.",
+  "not-saved": "This browser wouldn't save your profile. It works for now, but you'll need to enter it again next time.",
+} as const;
+
+function ProfileNoticeText({ notice }: { notice: "unreadable" | "not-saved" }) {
+  return (
+    <p role="status" className="border-l-[6px] border-sticker-yellow py-1 pl-4">
+      {NOTICE_TEXT[notice]}
+    </p>
+  );
+}
+
 function Footer() {
   return <footer className="mt-4 border-t border-rule pt-5 text-meta text-ink-soft">Label Lens explains labels. It is not medical advice.</footer>;
 }
 
 export function LabelLens() {
-  const { profile, ready, setupDone, save, skipSetup } = useProfile();
+  const { profile, ready, setupDone, notice, save, skipSetup } = useProfile();
   const { state, scan, retry, reset } = useScan(profile);
   const speech = useSpeech();
   const [profileOpen, setProfileOpen] = useState(false);
@@ -45,6 +58,13 @@ export function LabelLens() {
   const listRef = useRef<HTMLHeadingElement>(null);
   const openTrigger = useRef<HTMLElement | null>(null);
   const wasIdle = useRef(true);
+
+  // After first-run setup is saved or skipped, the form unmounts; land on the scan button.
+  const wasSetupDone = useRef(true);
+  useEffect(() => {
+    if (setupDone && !wasSetupDone.current) scanButtonRef.current?.focus();
+    wasSetupDone.current = setupDone;
+  }, [setupDone]);
 
   // Move focus with the view so keyboard and screen-reader users land on the new screen.
   useEffect(() => {
@@ -96,6 +116,7 @@ export function LabelLens() {
         <header className="flex min-h-12 items-center">
           <span className="text-lead font-bold">Label Lens</span>
         </header>
+        {notice === "unreadable" && <ProfileNoticeText notice={notice} />}
         <ProfileSetup initial={profile} onSave={save} onSkip={skipSetup} />
         <Footer />
       </main>
@@ -115,6 +136,8 @@ export function LabelLens() {
             {profileItems(profile).length > 0 ? `Checking for ${profileItems(profile).join(", ")}` : "Add your profile"}
           </button>
         </header>
+
+        {notice && <ProfileNoticeText notice={notice} />}
 
         <section className="flex flex-col gap-3">
           <h1 className="text-title leading-tight font-bold tracking-[-0.01em]">Point at a label.</h1>
@@ -153,7 +176,6 @@ export function LabelLens() {
             <button
               type="button"
               onClick={() => speech.toggle(buildSpeech(analysis), state.language)}
-              aria-pressed={speech.speaking}
               className="flex min-h-12 items-center gap-2 rounded-full bg-ink pr-4 pl-3 font-bold whitespace-nowrap text-paper"
             >
               <SpeakerIcon />
@@ -177,7 +199,7 @@ export function LabelLens() {
         />
       </div>
 
-      <div className="flex min-w-0 flex-col gap-6">
+      <div lang={state.language} className="flex min-w-0 flex-col gap-6">
         <div className="flex flex-col gap-1">
           <h1 ref={headingRef} tabIndex={-1} className="text-section leading-tight font-bold">
             {title ?? (
@@ -193,6 +215,8 @@ export function LabelLens() {
             {state.saved && <span className="rounded-full border border-rule px-2 py-0.5">Saved example</span>}
           </p>
         </div>
+
+        {speech.failed && <p role="status">Couldn&apos;t play audio on this device. You can still read the result on screen.</p>}
 
         {open && <EvidenceSheet ref={sheetRef} item={open} onClose={closeEvidence} />}
 

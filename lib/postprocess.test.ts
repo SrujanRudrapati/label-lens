@@ -112,3 +112,19 @@ describe("deriveSafeForYou", () => {
   test("danger wins", () => expect(deriveSafeForYou("yes", [flag({ severity: "danger" })])).toBe("no"));
   test("no flags is yes", () => expect(deriveSafeForYou("no", [])).toBe("yes"));
 });
+
+describe("verdict is never upgraded by dropped flags", () => {
+  test("a danger flag with blank evidence leaves the verdict unknown, not yes", () => {
+    const out = enforceSafetyRules(analysis([flag({ severity: "danger", evidence: "   " })], "no"), "en");
+    expect(out.personalFlags).toHaveLength(0);
+    expect(out.safeForYou).toBe("unknown");
+  });
+
+  test("evidence with an ingredient sentence is not softened by a cross-contact sentence", () => {
+    const out = enforceSafetyRules(
+      analysis([flag({ kind: "allergen", severity: "danger", evidence: "CONTAINS MILK. MAY CONTAIN TRACES OF PEANUT." })], "no"),
+      "en",
+    );
+    expect(out.personalFlags[0]?.severity).toBe("danger");
+  });
+});

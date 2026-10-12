@@ -15,6 +15,8 @@ export const Fixture = z.object({
 });
 export type Fixture = z.infer<typeof Fixture>;
 
+const MIN_PARTIAL_MATCH = 3;
+
 export type Source = "saved" | "live";
 
 const FIXTURE_LANGUAGES = ["en", "es"];
@@ -45,7 +47,15 @@ function profileItems(profile: Profile): string[] {
 /** Case-insensitive "contains" in either direction between a flag's profileMatch and a profile item. */
 export function matchesProfile(profileMatch: string, items: readonly string[]): boolean {
   const m = norm(profileMatch);
-  return m.length > 0 && items.some((item) => item.includes(m) || m.includes(item));
+  return (
+    m.length > 0 &&
+    items.some((item) => {
+      if (item === m) return true;
+      const [short, long] = item.length < m.length ? [item, m] : [m, item];
+      // A one- or two-letter profile entry must not match everything.
+      return short.length >= MIN_PARTIAL_MATCH && long.includes(short);
+    })
+  );
 }
 
 /** Keeps only the recorded personal flags that apply to this profile; every other field stays verbatim. */

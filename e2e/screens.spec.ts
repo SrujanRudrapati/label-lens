@@ -40,7 +40,7 @@ for (const vp of VIEWPORTS) {
     await page.screenshot({ path: `${OUT}/loading-${vp.name}.png`, fullPage: true });
 
     releaseAnalyze();
-    const firstSticker = page.getByRole("button", { name: /^Danger: Contains peanuts/ });
+    const firstSticker = page.getByRole("button", { name: /^Contains peanuts\. Danger/ });
     await expect(firstSticker).toBeVisible();
     await expect(page.getByText("Saved example")).toBeVisible();
     await page.screenshot({ path: `${OUT}/result-${vp.name}.png`, fullPage: true, animations: "disabled" });

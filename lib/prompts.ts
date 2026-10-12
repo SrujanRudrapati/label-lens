@@ -72,3 +72,8 @@ export const LANGUAGE_NAMES: Record<string, string> = { en: "English", es: "Span
 export function languageName(code: string): string {
   return LANGUAGE_NAMES[code] ?? "English";
 }
+
+/** Untrusted text can't close our prompt tags: angle brackets become unicode escapes. */
+export function defang(text: string): string {
+  return text.replace(/</g, "\\u003c").replace(/>/g, "\\u003e");
+}

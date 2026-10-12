@@ -60,3 +60,20 @@ describe("rateLimit", () => {
     expect(() => rateLimit(b, t0)).not.toThrow();
   });
 });
+
+describe("rateLimit client identity", () => {
+  test("a spoofed leading x-forwarded-for hop does not reset the bucket", () => {
+    process.env.MOCK_AI = "";
+    resetRateLimit();
+    const spoofed = (n: number) => new Request("http://x/", { headers: { "x-forwarded-for": `10.0.0.${n}, 203.0.113.9` } });
+    let blocked = false;
+    for (let i = 0; i < 40; i++) {
+      try {
+        rateLimit(spoofed(i), 1_000);
+      } catch {
+        blocked = true;
+      }
+    }
+    expect(blocked).toBe(true);
+  });
+});

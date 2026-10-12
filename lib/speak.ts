@@ -5,12 +5,13 @@ import type { Analysis } from "./schema";
 
 const FALLBACK_LANG: Record<string, string> = { en: "en-US", es: "es-ES" };
 const MAX_CHUNK_CHARS = 180;
-const MAX_SPOKEN_FLAGS = 6;
+const SEVERITY_ORDER = { danger: 0, caution: 1, info: 2 } as const;
 const GOOD_VOICE_RE = /premium|enhanced|natural|google/i;
 
 /** What Read aloud says: the name, the summary, the personal flags, then the label's own warnings. */
 export function buildSpeech(analysis: Analysis): string {
-  const flags = analysis.personalFlags.slice(0, MAX_SPOKEN_FLAGS).map((f) => `${f.title}. ${f.explanation}`);
+  const bySeverity = [...analysis.personalFlags].sort((a, b) => SEVERITY_ORDER[a.severity] - SEVERITY_ORDER[b.severity]);
+  const flags = bySeverity.map((f) => `${f.title}. ${f.explanation}`);
   const warnings = analysis.labelWarnings.map((w) => w.text);
   return [analysis.productName, analysis.summary, ...flags, ...warnings, analysis.disclaimer]
     .filter((part): part is string => Boolean(part && part.trim()))
@@ -47,6 +48,8 @@ export function speechSupported(): boolean {
 export interface UseSpeech {
   supported: boolean;
   speaking: boolean;
+  /** True when the browser reported a real playback failure (not a user stop). */
+  failed: boolean;
   toggle: (text: string, language: string) => void;
   stop: () => void;
 }
@@ -55,8 +58,11 @@ export interface UseSpeech {
 export function useSpeech(): UseSpeech {
   const [supported, setSupported] = useState(false);
   const [speaking, setSpeaking] = useState(false);
+  const [failed, setFailed] = useState(false);
   const voices = useRef<SpeechSynthesisVoice[]>([]);
   const session = useRef(0);
+  // Held so the browser can't garbage-collect in-flight utterances before their end events fire.
+  const queued = useRef<SpeechSynthesisUtterance[]>([]);
 
   useEffect(() => {
     if (!speechSupported()) return;
@@ -78,6 +84,7 @@ export function useSpeech(): UseSpeech {
     session.current++;
     if (speechSupported()) window.speechSynthesis.cancel();
     setSpeaking(false);
+    setFailed(false);
   }, []);
 
   const toggle = useCallback(
@@ -89,7 +96,10 @@ export function useSpeech(): UseSpeech {
       const mine = ++session.current;
       const voice = pickVoice(voices.current, language);
       const chunks = chunkSpeech(text);
+      if (chunks.length === 0) return;
       synth.cancel();
+      queued.current = [];
+      setFailed(false);
       setSpeaking(true);
       chunks.forEach((chunk, i) => {
         const utterance = new SpeechSynthesisUtterance(chunk);
@@ -98,13 +108,26 @@ export function useSpeech(): UseSpeech {
         const finish = () => {
           if (i === chunks.length - 1 && session.current === mine) setSpeaking(false);
         };
+        queued.current.push(utterance);
         utterance.onend = finish;
-        utterance.onerror = finish;
-        synth.speak(utterance);
+        utterance.onerror = (e) => {
+          if (session.current === mine && e.error !== "canceled" && e.error !== "interrupted") {
+            console.warn("[speech]", e.error);
+            setFailed(true);
+          }
+          finish();
+        };
+        try {
+          synth.speak(utterance);
+        } catch (err) {
+          console.warn("[speech]", err);
+          setFailed(true);
+          setSpeaking(false);
+        }
       });
     },
     [speaking, stop],
   );
 
-  return { supported, speaking, toggle, stop };
+  return { supported, speaking, failed, toggle, stop };
 }

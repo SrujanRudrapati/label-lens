@@ -60,6 +60,7 @@ export async function callTool<T>(args: CallToolArgs<T>): Promise<T> {
         : lastProblem;
 
     const retryNote = `Your output failed validation: ${lastProblem}. Call ${tool.name} again with a corrected, complete result.`;
+    if (response.content.length === 0) continue; // an empty assistant turn is rejected by the API; just ask again
     messages.push(
       { role: "assistant", content: response.content },
       {

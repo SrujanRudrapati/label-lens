@@ -60,7 +60,7 @@ export function stickersFrom(analysis: Analysis): StickerItem[] {
 }
 
 export function stickerAriaLabel(item: StickerItem): string {
-  return `${SEVERITY_WORD[item.severity]}: ${item.title}. Show label text`;
+  return `${item.stickerTitle}. ${SEVERITY_WORD[item.severity]}. Show label text`;
 }
 
 const MATCH_PREFIX: Record<StickerItem["kind"], string> = {

@@ -39,7 +39,7 @@ function ItemList({ id, heading, items, openId, onOpen, headingRef }: ItemListPr
       <h2 id={id} ref={headingRef} tabIndex={-1} className="text-section font-bold">
         {heading}
       </h2>
-      <ul className="flex flex-col divide-y divide-rule border-y border-rule">
+      <ul role="list" className="flex flex-col divide-y divide-rule border-y border-rule">
         {items.map((item) => (
           <li key={item.id} className="flex gap-3 py-3">
             <MiniSticker severity={item.severity} />

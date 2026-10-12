@@ -6,7 +6,7 @@
   --color-ink-soft: #4a5a70;
   --color-rule: #dce2ea;
   /* Borders that identify a control need 3:1 on paper. */
-  --color-rule-strong: #8e9aab;
+  --color-rule-strong: #6b7a90;
   --color-sticker-yellow: #ffd23f;
   --color-sticker-red: #e5484d;
   --color-sticker-blue: #3e7bfa;
@@ -25,6 +25,11 @@
   --text-title: 1.944rem;
 
   --shadow-sticker: 0 1px 0 rgba(24, 38, 58, 0.25), 0 6px 14px -6px rgba(24, 38, 58, 0.35);
+}
+
+::placeholder {
+  color: var(--color-ink-soft);
+  opacity: 1;
 }
 
 html {

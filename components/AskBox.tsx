@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { emergencyAnswer, isEmergency } from "@/lib/emergency";
 import type { Analysis, Profile } from "@/lib/schema";
 
 const MAX_QUESTION_CHARS = 500;
@@ -42,6 +43,7 @@ export function AskBox({ analysis, profile, language }: AskBoxProps) {
   const [state, setState] = useState<AskState>({ phase: "idle" });
   const controller = useRef<AbortController | null>(null);
   const inputId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => () => controller.current?.abort(), []);
 
@@ -51,6 +53,13 @@ export function AskBox({ analysis, profile, language }: AskBoxProps) {
     if (!q || state.phase === "streaming") return;
 
     controller.current?.abort();
+    inputRef.current?.focus();
+    // An emergency never waits on the network: the answer is shown right away, and the server check stays as a backstop.
+    if (isEmergency(q)) {
+      setQuestion("");
+      setState({ phase: "done", question: q, answer: emergencyAnswer(language) });
+      return;
+    }
     const ctl = new AbortController();
     controller.current = ctl;
     setState({ phase: "streaming", question: q, answer: "" });
@@ -67,11 +76,26 @@ export function AskBox({ analysis, profile, language }: AskBoxProps) {
         setState({ phase: "error", question: q, message: ERROR_TEXT[res.status] ?? "Couldn't get an answer. Please try again." });
         return;
       }
-      await readStream(res, (answer) => setState({ phase: "streaming", question: q, answer }));
-      setState((s) => (s.phase === "streaming" ? { phase: "done", question: q, answer: s.answer } : s));
+      let received = "";
+      await readStream(res, (answer) => {
+        received = answer;
+        setState({ phase: "streaming", question: q, answer });
+      });
+      setState(
+        received.trim()
+          ? { phase: "done", question: q, answer: received }
+          : { phase: "error", question: q, message: "No answer came back. Please try again." },
+      );
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return;
-      setState({ phase: "error", question: q, message: "Couldn't reach Label Lens. Check your connection and try again." });
+      setState((s) => ({
+        phase: "error",
+        question: q,
+        message:
+          s.phase === "streaming" && s.answer
+            ? `${s.answer}\n\n(The answer was interrupted. Please ask again.)`
+            : "The answer didn't come through. Please try again.",
+      }));
     }
   }
 
@@ -87,6 +111,7 @@ export function AskBox({ analysis, profile, language }: AskBoxProps) {
         </label>
         <input
           id={inputId}
+          ref={inputRef}
           value={question}
           maxLength={MAX_QUESTION_CHARS}
           onChange={(e) => setQuestion(e.target.value)}
@@ -108,7 +133,7 @@ export function AskBox({ analysis, profile, language }: AskBoxProps) {
           {state.phase === "error" ? (
             <p role="alert">{state.message}</p>
           ) : (
-            <p className="max-w-[62ch] whitespace-pre-wrap">{state.answer || <span className="text-ink-soft">Thinking…</span>}</p>
+            <p lang={language} className="max-w-[62ch] whitespace-pre-wrap">{state.answer || <span className="text-ink-soft">Thinking…</span>}</p>
           )}
         </div>
       )}
