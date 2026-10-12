@@ -18,10 +18,12 @@ export interface ScanState {
   /** A failure before any request was answered (image decode, quick and analyze both failing). */
   failure: FailureKind | null;
   saved: boolean;
+  /** Language the result was requested in (set when the scan starts). */
+  language: string;
 }
 
 export type ScanAction =
-  | { type: "start"; run: number }
+  | { type: "start"; run: number; language: string }
   | { type: "photo"; run: number; url: string; aspect: number }
   | { type: "quick"; run: number; quick: QuickResult; source: Source }
   | { type: "quick-failed"; run: number; kind: FailureKind }
@@ -41,11 +43,12 @@ export const INITIAL_SCAN: ScanState = {
   analysisFailure: null,
   failure: null,
   saved: false,
+  language: "en",
 };
 
 export function scanReducer(state: ScanState, action: ScanAction): ScanState {
   if (action.type === "reset") return { ...INITIAL_SCAN, run: action.run };
-  if (action.type === "start") return { ...INITIAL_SCAN, run: action.run, active: true };
+  if (action.type === "start") return { ...INITIAL_SCAN, run: action.run, active: true, language: action.language };
   if (action.run !== state.run) return state;
 
   switch (action.type) {

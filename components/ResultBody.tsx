@@ -2,6 +2,7 @@ import type { Ref } from "react";
 import type { Analysis, Profile } from "@/lib/schema";
 import { SEVERITY_WORD, type StickerItem } from "@/lib/stickers";
 import { profileItems } from "@/lib/profile";
+import { AskBox } from "./AskBox";
 import { MiniSticker, Pictogram } from "./Pictogram";
 
 type VerdictTone = "danger" | "caution" | "info" | "safe";
@@ -72,9 +73,10 @@ interface ResultBodyProps {
   openId: string | null;
   onOpen: (item: StickerItem, trigger: HTMLElement) => void;
   listRef: Ref<HTMLHeadingElement>;
+  language: string;
 }
 
-export function ResultBody({ analysis, profile, stickers, openId, onOpen, listRef }: ResultBodyProps) {
+export function ResultBody({ analysis, profile, stickers, openId, onOpen, listRef, language }: ResultBodyProps) {
   const verdict = verdictFor(analysis, profile);
   const personal = stickers.filter((s) => s.kind !== "label");
   const label = stickers.filter((s) => s.kind === "label");
@@ -114,6 +116,8 @@ export function ResultBody({ analysis, profile, stickers, openId, onOpen, listRe
           </dl>
         </section>
       )}
+
+      <AskBox analysis={analysis} profile={profile} language={language} />
 
       <p className="flex max-w-[62ch] gap-2 text-meta text-ink-soft">
         <Pictogram severity="info" className="mt-0.5 size-4" />

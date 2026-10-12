@@ -55,7 +55,7 @@ export function useScan(profile: Profile): UseScan {
       cancel();
       const run = ++runRef.current;
       lastInput.current = input;
-      dispatch({ type: "start", run });
+      dispatch({ type: "start", run, language: profile.language });
 
       const quickCtl = new AbortController();
       const analyzeCtl = new AbortController();

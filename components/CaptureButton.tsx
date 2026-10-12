@@ -38,7 +38,7 @@ export function CaptureButton({ onFile, label, variant = "primary", ref }: Captu
   const look = {
     primary: "h-16 w-full justify-center rounded-sheet bg-ink text-lead text-paper",
     pill: "min-h-12 rounded-full bg-ink pr-5 pl-4 text-paper",
-    quiet: "min-h-12 rounded-full border border-rule-strong bg-white pr-4 pl-3",
+    quiet: "min-h-12 rounded-full border border-rule-strong bg-white px-4",
   }[variant];
 
   return (
@@ -54,7 +54,7 @@ export function CaptureButton({ onFile, label, variant = "primary", ref }: Captu
         onChange={handleChange}
       />
       <button ref={ref} type="button" onClick={() => input.current?.click()} className={`flex items-center gap-3 font-bold ${look}`}>
-        <CameraIcon />
+        {variant !== "quiet" && <CameraIcon />}
         {label}
       </button>
     </>

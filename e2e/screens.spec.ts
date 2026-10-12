@@ -12,6 +12,7 @@ const OUT = "docs/screenshots";
 async function seedProfile(page: Page) {
   await page.addInitScript((profile) => {
     window.localStorage.setItem("label-lens:profile", JSON.stringify(profile));
+    window.localStorage.setItem("label-lens:setup-done", "1");
   }, DEMO_PROFILE);
 }
 
