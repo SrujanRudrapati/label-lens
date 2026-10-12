@@ -44,4 +44,4 @@ Next.js, React, TypeScript, Tailwind CSS, Anthropic API, Claude Sonnet 5.5, Clau
 ## Links
 - Live demo: https://label-lens-iota.vercel.app
 - Code: https://github.com/SrujanRudrapati/label-lens
-- Demo video: (add the YouTube/Vimeo link after uploading docs/demo/label-lens-demo.mp4)
+- Demo video: https://youtu.be/STqFvowDtD4

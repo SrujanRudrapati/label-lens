@@ -3,7 +3,7 @@
 **Point your phone at any label. Label Lens tells you what it means for *you*: in your language,
 read aloud, with every warning backed by the exact words on the label.**
 
-Live demo: https://label-lens-iota.vercel.app · Code: https://github.com/SrujanRudrapati/label-lens
+Live demo: https://label-lens-iota.vercel.app · Demo video: https://youtu.be/STqFvowDtD4 · Code: https://github.com/SrujanRudrapati/label-lens
 
 Built for the Devpost hackathon "All U Can Do With AI".
 
