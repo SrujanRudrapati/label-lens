@@ -1,7 +1,7 @@
 # Status: overnight run (Phases 5–8)
 
 Everything below was built, checked (build, lint, unit tests, Playwright) and pushed to `main`.
-Last verified: `npm run build`, `npm run lint`, `npm test` (58 tests) and `npm run e2e` (6 tests, mock mode) all pass.
+Last verified: `npm run build`, `npm run lint`, `npm test` (56 tests) and `npm run e2e` (6 tests, mock mode) all pass.
 
 ## Done
 
