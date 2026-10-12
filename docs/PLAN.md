@@ -33,7 +33,7 @@ Phases 4–6 are compressed. If any of them overruns its stop, apply the cut lis
 - `lib/anthropic.ts`: server-only client singleton (`import "server-only"`)
 - `lib/prompts.ts`: QUICK_SYSTEM, ANALYSIS_SYSTEM, ASK_SYSTEM
 - `lib/tools.ts`: tool definitions. The JSON schema is derived from zod (`z.toJSONSchema`) so there is one source of truth.
-- `lib/callTool.ts`: shared "forced tool call → zod parse → retry once with the error fed back → typed error" helper used by quick and analyze
+- `lib/callTool.ts`: shared "tool call (auto + instruction) → zod parse → retry once with the error fed back → typed error" helper used by quick and analyze
 - `lib/guard.ts`: body-size check (4 MB), base64/JPEG check, and an in-memory per-IP token bucket. This is best-effort only: limits are per serverless instance.
 - `app/api/quick/route.ts`, `app/api/analyze/route.ts`, `app/api/ask/route.ts` (streams `text/plain` from `messages.stream`)
 - `scripts/try.ts` (run with `npx tsx`): runs a sample through quick + analyze and prints the JSON. With `--save`, it writes the result as a fixture.
@@ -71,7 +71,7 @@ Fill in the README template, including the sentence: "Sample buttons on the live
 |---|---|
 | **iOS camera input** | Use plain `<input type=file accept="image/*" capture="environment">`, no getUserMedia. iOS may return HEIC from the library, but Safari decodes it into canvas, and the downscale always re-encodes JPEG. EXIF rotation is handled by `imageOrientation:"from-image"`. Reset `input.value` after each pick so the same photo can be retaken. Manual test on a real iPhone in Phase 6. |
 | **Image size** | Downscale client-side to ≤1568px / q0.85 (~200–400 KB). The server rejects bodies over 4 MB with 413 before parsing, which also stays under Vercel's 4.5 MB function body limit. JPEG magic bytes are checked. |
-| **JSON reliability** | Forced `tool_choice: {type:"tool"}`, the tool schema is generated from zod, `safeParse`, and one retry that includes the zod issues. After that, a typed error → "Couldn't read this label clearly. Retake?" A post-parse **evidence guard** drops any flag whose `evidence` is empty. |
+| **JSON reliability** | `tool_choice: {type:"auto", disable_parallel_tool_use: true}` plus a "call the tool exactly once" instruction (Sonnet 5.5 rejects forced tool_choice), the tool schema is generated from zod, `safeParse`, and one retry that includes the zod issues. After that, a typed error → "Couldn't read this label clearly. Retake?" A post-parse **evidence guard** drops any flag whose `evidence` is empty. |
 | **Hallucinated flags** | The prompt requires a verbatim `evidence` quote. Interaction flags are capped at "caution" and must mention a pharmacist (enforced in post-processing: severity is clamped and the pharmacist line is appended if missing). |
 | **Latency** (quick < 3 s, full < 12 s) | Run in parallel. Quick uses Haiku with max_tokens 200 and a tiny schema. Analyze uses max_tokens ~1500. Prompt caching via `cache_control` on the system block. Caching needs a minimum prefix length (≈1k tokens on Sonnet, more on Haiku), so short prompts silently won't cache, which is harmless. Images are sent at ≤1568px to avoid server-side resizing. Route `maxDuration = 30`. |
 | **Cost on the public demo** | $5 console spend cap, the per-IP limiter, max_tokens caps, and sample chips replaying recorded fixtures on the live site. Only real photos hit the API. |
