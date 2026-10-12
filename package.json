@@ -9,12 +9,15 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "vitest run",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "try": "tsx --conditions=react-server --env-file=.env.local scripts/try.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0",
     "next": "^16.4.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
+    "server-only": "^0.0.1",
     "zod": "^4.6.6"
   },
   "devDependencies": {
@@ -26,6 +29,7 @@
     "eslint-config-next": "^16.4.0",
     "postcss": "^8.5.29",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "vitest": "^5.0.3"
   }
