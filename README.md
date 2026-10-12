@@ -7,11 +7,17 @@ Live demo: https://label-lens-iota.vercel.app · Demo video: https://youtu.be/ST
 
 Built for the Devpost hackathon "All U Can Do With AI".
 
-<p>
-  <img src="docs/screenshots/home-390.png" alt="Home screen with the Scan a label button and sample labels" width="260">
-  <img src="docs/screenshots/result-390.png" alt="Result for a peanut snack with warning stickers on the photo" width="260">
-  <img src="docs/screenshots/evidence-390.png" alt="Evidence sheet quoting the label text behind a sticker" width="260">
+<p align="center">
+  <img src="docs/screenshots/demo.gif" alt="Stickers landing on a scanned snack bar, then the evidence sheet opening" width="250">
 </p>
+
+<table>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/readme-1-home.png" alt="Home screen with the Scan a label button and sample labels" width="250"><br><sub>Point at a label</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/readme-2-result.png" alt="Result for a peanut snack with warning stickers on the photo" width="250"><br><sub>Warnings made for you</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/readme-3-evidence.png" alt="Evidence sheet quoting the label text behind the Contains peanuts sticker" width="250"><br><sub>Every warning quotes the label</sub></td>
+  </tr>
+</table>
 
 ## The problem
 Labels are written for the average person, and almost nobody is average. Someone with a peanut
