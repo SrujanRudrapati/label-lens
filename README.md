@@ -41,7 +41,7 @@ npm run dev
 <!-- Open-source libraries and APIs above. Development was assisted by Claude Code using the
      MIT-licensed ECC configuration and Anthropic's frontend-design skill. All application code
      was written during the hackathon. -->
-- **Sample label images are fictional products created for this project.
+- Sample label images are fictional products created for this project.
 
 ## Team
 <!-- Names -->
