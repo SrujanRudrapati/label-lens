@@ -1,0 +1,99 @@
+{
+  "sampleId": "snack-es",
+  "language": "en",
+  "recordedWith": {
+    "allergies": [
+      "peanut",
+      "tree nuts"
+    ],
+    "medications": [
+      "warfarin"
+    ],
+    "diet": [
+      "vegan"
+    ],
+    "language": "en"
+  },
+  "quick": {
+    "readable": true,
+    "labelType": "food",
+    "productName": "TRAILHEAD CRUNCH Barra de Miel y Cacahuate"
+  },
+  "analysis": {
+    "labelType": "food",
+    "productName": "Trailhead Crunch Honey Peanut Bar",
+    "readable": true,
+    "language": "en",
+    "summary": "This is a honey and peanut snack bar. It lists peanuts as an ingredient, which matters most for your peanut allergy. It also has honey and a tree nut cross-contact warning.",
+    "personalFlags": [
+      {
+        "severity": "danger",
+        "kind": "allergen",
+        "title": "Contains peanut",
+        "explanation": "Peanuts are a main ingredient and are also listed in the allergen statement. This bar is not safe for a peanut allergy.",
+        "evidence": "CONTIENE: CACAHUATE, SOYA.",
+        "profileMatch": "peanut"
+      },
+      {
+        "severity": "caution",
+        "kind": "allergen",
+        "title": "May contain tree nuts",
+        "explanation": "The label says it may contain tree nuts and is made in a plant that also processes them. This is a cross-contact risk.",
+        "evidence": "Puede contener nueces, leche, trigo y ajonjolí.",
+        "profileMatch": "tree nuts"
+      },
+      {
+        "severity": "caution",
+        "kind": "diet",
+        "title": "Contains honey",
+        "explanation": "Honey is made by bees, so it conflicts with a vegan diet.",
+        "evidence": "miel",
+        "profileMatch": "vegan"
+      },
+      {
+        "severity": "info",
+        "kind": "diet",
+        "title": "May contain milk",
+        "explanation": "Milk is listed as a possible cross-contact allergen. Check with the maker if this matters for your vegan diet.",
+        "evidence": "Puede contener nueces, leche, trigo y ajonjolí.",
+        "profileMatch": "vegan"
+      },
+      {
+        "severity": "info",
+        "kind": "diet",
+        "title": "Natural flavor source unclear",
+        "explanation": "Natural flavor can come from animal sources. Check with the maker if you want to be sure it is vegan.",
+        "evidence": "saborizante natural",
+        "profileMatch": "vegan"
+      }
+    ],
+    "labelWarnings": [
+      {
+        "severity": "caution",
+        "text": "Made in a plant that also processes nuts, milk, wheat and sesame.",
+        "evidence": "Elaborado en una planta que también procesa estos alérgenos."
+      }
+    ],
+    "keyFacts": [
+      {
+        "label": "Allergens listed",
+        "value": "Cacahuate (peanut), soya (soy)"
+      },
+      {
+        "label": "May contain",
+        "value": "Nueces, leche, trigo, ajonjolí"
+      },
+      {
+        "label": "Serving",
+        "value": "1 bar (40 g), 190 kcal"
+      },
+      {
+        "label": "Storage",
+        "value": "Keep in a cool, dry place"
+      }
+    ],
+    "safeForYou": "no",
+    "confidence": "high",
+    "disclaimer": "This explains the label and is not medical advice. Ask a pharmacist or doctor if you are unsure about anything."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "sampleId": "blurry",
+  "language": "en",
+  "recordedWith": {
+    "allergies": [
+      "peanut",
+      "tree nuts"
+    ],
+    "medications": [
+      "warfarin"
+    ],
+    "diet": [
+      "vegan"
+    ],
+    "language": "en"
+  },
+  "quick": {
+    "readable": false,
+    "labelType": "food",
+    "productName": "Trail Head Crunch Honey Peanut Bar"
+  },
+  "analysis": {
+    "labelType": "food",
+    "productName": "Trailhead Crunch Honey Peanut Bar",
+    "readable": false,
+    "language": "en",
+    "summary": "This looks like a snack bar, but the photo is too blurry to read the ingredients and allergen lines with certainty. Please retake it: hold the phone steady, use more light, and move closer to the text.",
+    "personalFlags": [],
+    "labelWarnings": [],
+    "keyFacts": [],
+    "safeForYou": "unknown",
+    "confidence": "low",
+    "disclaimer": "Until you can read the label clearly, do not rely on this result. Check the printed allergen and ingredient lines yourself or ask the maker or a pharmacist."
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "sampleId": "cleaner",
+  "language": "es",
+  "recordedWith": {
+    "allergies": [
+      "peanut",
+      "tree nuts"
+    ],
+    "medications": [
+      "warfarin"
+    ],
+    "diet": [
+      "vegan"
+    ],
+    "language": "es"
+  },
+  "quick": {
+    "readable": true,
+    "labelType": "household",
+    "productName": "BRIGHTHOME Concentrated Regular Bleach"
+  },
+  "analysis": {
+    "labelType": "household",
+    "productName": "BRIGHTHOME Concentrated Regular Bleach",
+    "readable": true,
+    "language": "es",
+    "summary": "Es lejía concentrada para el hogar con hipoclorito de sodio al 6,0 %. La etiqueta la marca como PELIGRO: es corrosiva y nunca debe mezclarse con amoníaco, vinagre ni otros ácidos. Nada de tu perfil (alergias, warfarina, dieta vegana) se ve afectado por lo impreso.",
+    "personalFlags": [],
+    "labelWarnings": [
+      {
+        "severity": "danger",
+        "text": "Corrosiva: causa daño ocular irreversible y quemaduras en la piel. Usa gafas y guantes.",
+        "evidence": "CORROSIVE. Causes irreversible eye damage and skin burns."
+      },
+      {
+        "severity": "danger",
+        "text": "No la mezcles con amoníaco, vinagre, limpiadores de inodoro ni otros ácidos: libera gases peligrosos.",
+        "evidence": "Do not mix with ammonia, vinegar, toilet bowl cleaners, rust removers or other acids."
+      },
+      {
+        "severity": "caution",
+        "text": "Si se ingiere, llama de inmediato a un centro de toxicología o a un médico. No provoques el vómito.",
+        "evidence": "Call a poison control center or doctor immediately."
+      },
+      {
+        "severity": "info",
+        "text": "Mantener fuera del alcance de los niños. Úsala solo en un área bien ventilada.",
+        "evidence": "KEEP OUT OF REACH OF CHILDREN."
+      }
+    ],
+    "keyFacts": [
+      {
+        "label": "Ingrediente activo",
+        "value": "Sodium hypochlorite 6.0%"
+      },
+      {
+        "label": "Peligro principal",
+        "value": "Corrosiva: daño ocular irreversible y quemaduras en la piel"
+      },
+      {
+        "label": "Primeros auxilios (ojos)",
+        "value": "Enjuagar con agua 15–20 minutos; quitar lentes de contacto tras los primeros 5 minutos"
+      },
+      {
+        "label": "Almacenamiento",
+        "value": "Lugar fresco y seco, lejos del sol y del calor"
+      }
+    ],
+    "safeForYou": "yes",
+    "confidence": "high",
+    "disclaimer": "Esto explica la etiqueta y no es consejo médico. Si alguien ingiere el producto, llama de inmediato a emergencias o a toxicología de tu zona."
+  }
+}

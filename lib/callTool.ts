@@ -16,6 +16,7 @@ interface CallToolArgs<T> {
   maxTokens: number;
   tool: ToolDef<T>;
   content: Anthropic.ContentBlockParam[];
+  thinking: Anthropic.ThinkingConfigParam;
   signal?: AbortSignal;
 }
 
@@ -24,11 +25,12 @@ function toolUseOf(message: Anthropic.Message): Anthropic.ToolUseBlock | undefin
 }
 
 /**
- * Forced tool call -> zod parse -> one retry with the validation error fed back -> typed error.
+ * Tool call (tool_choice "auto" plus an explicit instruction: Sonnet 5.5 rejects forced tool_choice) -> zod parse -> one retry with the validation error fed back -> typed error.
  * The system prompt carries cache_control so repeat calls reuse it when it is long enough.
  */
 export async function callTool<T>(args: CallToolArgs<T>): Promise<T> {
-  const { model, system, maxTokens, tool, content, signal } = args;
+  const { model, system, maxTokens, tool, content, thinking, signal } = args;
+  const systemText = `${system}\n\nRespond only by calling the ${tool.name} tool exactly once.`;
   const messages: Anthropic.MessageParam[] = [{ role: "user", content }];
   let lastProblem = "no tool call returned";
 
@@ -37,15 +39,17 @@ export async function callTool<T>(args: CallToolArgs<T>): Promise<T> {
       {
         model,
         max_tokens: maxTokens,
-        system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
+        system: [{ type: "text", text: systemText, cache_control: { type: "ephemeral" } }],
         tools: [{ name: tool.name, description: tool.description, input_schema: tool.inputSchema as Anthropic.Tool.InputSchema }],
-        tool_choice: { type: "tool", name: tool.name },
+        tool_choice: { type: "auto", disable_parallel_tool_use: true },
+        thinking,
         messages,
       },
       { signal },
     );
 
     const block = toolUseOf(response);
+    if (response.content.filter((b) => b.type === "tool_use").length > 1) console.error(`[callTool] ${tool.name}: multiple tool_use blocks`);
     const parsed = block ? tool.schema.safeParse(block.input) : null;
     if (parsed?.success) return parsed.data;
 
@@ -54,20 +58,17 @@ export async function callTool<T>(args: CallToolArgs<T>): Promise<T> {
       : parsed && !parsed.success
         ? parsed.error.issues.map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`).join("; ")
         : lastProblem;
-    if (!block) break;
 
+    const retryNote = `Your output failed validation: ${lastProblem}. Call ${tool.name} again with a corrected, complete result.`;
     messages.push(
       { role: "assistant", content: response.content },
       {
         role: "user",
-        content: [
-          {
-            type: "tool_result",
-            tool_use_id: block.id,
-            is_error: true,
-            content: `Your output failed validation: ${lastProblem}. Call the tool again with a corrected, complete result.`,
-          },
-        ],
+        content: block
+          ? response.content
+              .filter((b): b is Anthropic.ToolUseBlock => b.type === "tool_use")
+              .map((b) => ({ type: "tool_result" as const, tool_use_id: b.id, is_error: true, content: retryNote }))
+          : retryNote,
       },
     );
   }

@@ -1,0 +1,99 @@
+{
+  "sampleId": "snack",
+  "language": "en",
+  "recordedWith": {
+    "allergies": [
+      "peanut",
+      "tree nuts"
+    ],
+    "medications": [
+      "warfarin"
+    ],
+    "diet": [
+      "vegan"
+    ],
+    "language": "en"
+  },
+  "quick": {
+    "readable": true,
+    "labelType": "food",
+    "productName": "Trailhead Crunch Honey Peanut Bar"
+  },
+  "analysis": {
+    "labelType": "food",
+    "productName": "Trailhead Crunch Honey Peanut Bar",
+    "readable": true,
+    "language": "en",
+    "summary": "This is a honey peanut granola-style bar. Peanuts are a main ingredient, which matters most for your peanut allergy. It also has honey, and a cross-contact warning for tree nuts.",
+    "personalFlags": [
+      {
+        "severity": "danger",
+        "kind": "allergen",
+        "title": "Contains peanuts",
+        "explanation": "Peanuts are listed as an ingredient and in the allergen statement. This conflicts with your peanut allergy.",
+        "evidence": "CONTAINS: PEANUTS, SOY.",
+        "profileMatch": "peanut"
+      },
+      {
+        "severity": "caution",
+        "kind": "allergen",
+        "title": "May contain tree nuts",
+        "explanation": "The label says it may contain tree nuts and is made in a facility that processes them. This is a cross-contact risk for your tree nut allergy.",
+        "evidence": "May contain tree nuts, milk, wheat and sesame.",
+        "profileMatch": "tree nuts"
+      },
+      {
+        "severity": "caution",
+        "kind": "diet",
+        "title": "Contains honey",
+        "explanation": "Honey is made by bees and is not vegan.",
+        "evidence": "honey",
+        "profileMatch": "vegan"
+      },
+      {
+        "severity": "info",
+        "kind": "diet",
+        "title": "May contain milk",
+        "explanation": "A cross-contact line mentions milk. This may matter for a vegan diet; check with the maker if unsure.",
+        "evidence": "May contain tree nuts, milk, wheat and sesame.",
+        "profileMatch": "vegan"
+      },
+      {
+        "severity": "info",
+        "kind": "diet",
+        "title": "Natural flavor source unclear",
+        "explanation": "Natural flavor can come from animal sources. Check with the maker if you want to be sure it is vegan.",
+        "evidence": "natural flavor",
+        "profileMatch": "vegan"
+      }
+    ],
+    "labelWarnings": [
+      {
+        "severity": "caution",
+        "text": "May contain milk, wheat, sesame and tree nuts; made in a facility that processes these allergens.",
+        "evidence": "Made in a facility that also processes these allergens."
+      }
+    ],
+    "keyFacts": [
+      {
+        "label": "Allergens listed",
+        "value": "Peanuts, soy"
+      },
+      {
+        "label": "May contain",
+        "value": "Tree nuts, milk, wheat, sesame"
+      },
+      {
+        "label": "Serving",
+        "value": "1 bar (40g), Calories 190"
+      },
+      {
+        "label": "Storage",
+        "value": "Store in a cool, dry place."
+      }
+    ],
+    "safeForYou": "no",
+    "confidence": "high",
+    "disclaimer": "If you have a severe allergy, avoid this product. Ask your doctor or pharmacist if you are unsure about anything."
+  }
+}

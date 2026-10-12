@@ -1,0 +1,90 @@
+{
+  "sampleId": "ibuprofen",
+  "language": "es",
+  "recordedWith": {
+    "allergies": [
+      "peanut",
+      "tree nuts"
+    ],
+    "medications": [
+      "warfarin"
+    ],
+    "diet": [
+      "vegan"
+    ],
+    "language": "es"
+  },
+  "quick": {
+    "readable": true,
+    "labelType": "medicine",
+    "productName": "WellPath Ibuprofen 200 mg"
+  },
+  "analysis": {
+    "labelType": "medicine",
+    "productName": "WellPath Ibuprofen 200 mg",
+    "readable": true,
+    "language": "es",
+    "summary": "Es ibuprofeno de 200 mg, un antiinflamatorio (AINE) para dolor y fiebre. Para ti importa sobre todo que tomas warfarina: la etiqueta avisa de más riesgo de sangrado. Confirma con un farmacéutico antes de usarlo.",
+    "personalFlags": [
+      {
+        "severity": "caution",
+        "kind": "interaction",
+        "title": "Ibuprofeno y warfarina",
+        "explanation": "El ibuprofeno es un AINE y la etiqueta advierte de más riesgo de sangrado con anticoagulantes. Confirma con un farmacéutico o médico antes de usarlo.",
+        "evidence": "take a blood thinning (anticoagulant) or steroid drug",
+        "profileMatch": "warfarin"
+      },
+      {
+        "severity": "info",
+        "kind": "diet",
+        "title": "Ácido esteárico: origen incierto",
+        "explanation": "El ácido esteárico puede ser de origen animal. Si sigues dieta vegana, consulta con el fabricante.",
+        "evidence": "stearic acid",
+        "profileMatch": "vegan"
+      }
+    ],
+    "labelWarnings": [
+      {
+        "severity": "danger",
+        "text": "Puede causar sangrado de estómago grave, con más riesgo en ciertos casos.",
+        "evidence": "may cause severe stomach bleeding"
+      },
+      {
+        "severity": "danger",
+        "text": "Los AINE aumentan el riesgo de infarto e ictus, que pueden ser mortales.",
+        "evidence": "increase the risk of heart attack, heart failure, and stroke. These can be fatal."
+      },
+      {
+        "severity": "caution",
+        "text": "Puede causar reacción alérgica grave, sobre todo si eres alérgico a la aspirina.",
+        "evidence": "Ibuprofen may cause a severe allergic reaction"
+      },
+      {
+        "severity": "info",
+        "text": "Mantener fuera del alcance de los niños. En caso de sobredosis, busca ayuda médica.",
+        "evidence": "Keep out of reach of children."
+      }
+    ],
+    "keyFacts": [
+      {
+        "label": "Principio activo",
+        "value": "Ibuprofen 200 mg (NSAID) en cada tableta"
+      },
+      {
+        "label": "Para qué sirve",
+        "value": "Pain reliever/fever reducer"
+      },
+      {
+        "label": "Ingredientes inactivos",
+        "value": "carnauba wax, corn starch, hypromellose, stearic acid, titanium dioxide, otros"
+      },
+      {
+        "label": "Distribuido por",
+        "value": "WellPath Pharmacy Brands, Columbus, OH"
+      }
+    ],
+    "safeForYou": "check",
+    "confidence": "high",
+    "disclaimer": "Esto explica la etiqueta y no es consejo médico; consulta a un farmacéutico o médico si tienes dudas. En caso de sobredosis, llama a emergencias o a toxicología."
+  }
+}

@@ -16,6 +16,7 @@ export function runQuick(imageBase64: string, signal?: AbortSignal): Promise<Qui
     system: QUICK_SYSTEM,
     maxTokens: QUICK_MAX_TOKENS,
     tool: QUICK_TOOL,
+    thinking: { type: "disabled" },
     content: [imageBlock(imageBase64), { type: "text", text: "Take a fast first look at this label." }],
     signal,
   });
@@ -38,6 +39,8 @@ export async function runAnalysis(
     system: ANALYSIS_SYSTEM,
     maxTokens: ANALYSIS_MAX_TOKENS,
     tool: ANALYSIS_TOOL,
+    // Sonnet 5.5 rejects "disabled"; between_tools keeps the small token budget for the answer.
+    thinking: { type: "between_tools" },
     content: [imageBlock(imageBase64), { type: "text", text }],
     signal,
   });

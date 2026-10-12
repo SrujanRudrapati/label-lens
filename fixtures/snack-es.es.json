@@ -1,0 +1,104 @@
+{
+  "sampleId": "snack-es",
+  "language": "es",
+  "recordedWith": {
+    "allergies": [
+      "peanut",
+      "tree nuts"
+    ],
+    "medications": [
+      "warfarin"
+    ],
+    "diet": [
+      "vegan"
+    ],
+    "language": "es"
+  },
+  "quick": {
+    "readable": true,
+    "labelType": "food",
+    "productName": "TRAILHEAD CRUNCH Barra de Miel y Cacahuate"
+  },
+  "analysis": {
+    "labelType": "food",
+    "productName": "Trailhead Crunch Barra de Miel y Cacahuate",
+    "readable": true,
+    "language": "es",
+    "summary": "Es una barra de avena con miel y cacahuate. Contiene cacahuate, que es tu alergia, y también miel, que no va con tu dieta vegana. Puede contener nueces. No es adecuada para ti.",
+    "personalFlags": [
+      {
+        "severity": "danger",
+        "kind": "allergen",
+        "title": "Contiene cacahuate",
+        "explanation": "El cacahuate es un ingrediente de esta barra y es tu alergia. Evita este producto.",
+        "evidence": "CONTIENE: CACAHUATE, SOYA.",
+        "profileMatch": "peanut"
+      },
+      {
+        "severity": "caution",
+        "kind": "allergen",
+        "title": "Puede contener nueces",
+        "explanation": "La etiqueta avisa que puede contener nueces y que se hace en una planta que las procesa. Hay riesgo de contaminación cruzada.",
+        "evidence": "Puede contener nueces, leche, trigo y ajonjolí.",
+        "profileMatch": "tree nuts"
+      },
+      {
+        "severity": "caution",
+        "kind": "diet",
+        "title": "Contiene miel",
+        "explanation": "La miel es un producto de origen animal y no es vegana.",
+        "evidence": "miel, jarabe de arroz integral",
+        "profileMatch": "vegan"
+      },
+      {
+        "severity": "info",
+        "kind": "diet",
+        "title": "Puede contener leche",
+        "explanation": "La línea de contaminación cruzada menciona leche. Consulta con el fabricante si te importa.",
+        "evidence": "Puede contener nueces, leche, trigo y ajonjolí.",
+        "profileMatch": "vegan"
+      },
+      {
+        "severity": "info",
+        "kind": "diet",
+        "title": "Saborizante natural: origen dudoso",
+        "explanation": "Puede ser de origen animal. Consulta con el fabricante para confirmarlo.",
+        "evidence": "saborizante natural",
+        "profileMatch": "vegan"
+      }
+    ],
+    "labelWarnings": [
+      {
+        "severity": "caution",
+        "text": "Contiene soya como alérgeno.",
+        "evidence": "CONTIENE: CACAHUATE, SOYA."
+      },
+      {
+        "severity": "caution",
+        "text": "Hecha en una planta que procesa nueces, leche, trigo y ajonjolí.",
+        "evidence": "Elaborado en una planta que también procesa estos alérgenos."
+      }
+    ],
+    "keyFacts": [
+      {
+        "label": "Alérgenos declarados",
+        "value": "CACAHUATE, SOYA"
+      },
+      {
+        "label": "Puede contener",
+        "value": "nueces, leche, trigo y ajonjolí"
+      },
+      {
+        "label": "Porción",
+        "value": "1 barra (40 g), 190 kcal"
+      },
+      {
+        "label": "Conservación",
+        "value": "Consérvese en un lugar fresco y seco"
+      }
+    ],
+    "safeForYou": "no",
+    "confidence": "high",
+    "disclaimer": "Esto explica la etiqueta y no es consejo médico. Si tienes dudas sobre tu alergia, pregunta a tu médico o farmacéutico."
+  }
+}

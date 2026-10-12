@@ -6,7 +6,7 @@ const LabelType = z.enum(["food", "medicine", "household", "other"]);
 export const QuickResult = z.object({
   readable: z.boolean(),
   labelType: LabelType,
-  productName: z.string().max(120).nullable(),
+  productName: z.string().max(60).nullable().default(null),
 });
 export type QuickResult = z.infer<typeof QuickResult>;
 
@@ -14,7 +14,7 @@ export const PersonalFlag = z.object({
   severity: Severity,
   kind: z.enum(["allergen", "interaction", "diet", "other"]),
   title: z.string().max(100),
-  explanation: z.string().max(400),
+  explanation: z.string().max(240),
   evidence: z.string().min(1).max(300),
   profileMatch: z.string().max(100),
 });
@@ -22,23 +22,23 @@ export type PersonalFlag = z.infer<typeof PersonalFlag>;
 
 export const LabelWarning = z.object({
   severity: Severity,
-  text: z.string().max(300),
+  text: z.string().max(160),
   evidence: z.string().min(1).max(300),
 });
 export type LabelWarning = z.infer<typeof LabelWarning>;
 
 export const Analysis = z.object({
   labelType: LabelType,
-  productName: z.string().max(120).nullable(),
+  productName: z.string().max(120).nullable().default(null),
   readable: z.boolean(),
   language: z.string().max(20),
-  summary: z.string().max(800),
-  personalFlags: z.array(PersonalFlag).max(12),
-  labelWarnings: z.array(LabelWarning).max(12),
-  keyFacts: z.array(z.object({ label: z.string().max(60), value: z.string().max(200) })).max(12),
+  summary: z.string().max(500),
+  personalFlags: z.array(PersonalFlag).max(8),
+  labelWarnings: z.array(LabelWarning).max(4),
+  keyFacts: z.array(z.object({ label: z.string().max(60), value: z.string().max(160) })).max(4),
   safeForYou: z.enum(["yes", "no", "check", "unknown"]),
   confidence: z.enum(["high", "medium", "low"]),
-  disclaimer: z.string().max(400).nullable(),
+  disclaimer: z.string().max(400).nullable().default(null),
 });
 export type Analysis = z.infer<typeof Analysis>;
 

@@ -1,0 +1,86 @@
+{
+  "sampleId": "ibuprofen",
+  "language": "en",
+  "recordedWith": {
+    "allergies": [
+      "peanut",
+      "tree nuts"
+    ],
+    "medications": [
+      "warfarin"
+    ],
+    "diet": [
+      "vegan"
+    ],
+    "language": "en"
+  },
+  "quick": {
+    "readable": true,
+    "labelType": "medicine",
+    "productName": "WellPath Ibuprofen 200 mg"
+  },
+  "analysis": {
+    "labelType": "medicine",
+    "productName": "WellPath Ibuprofen 200 mg",
+    "readable": true,
+    "language": "en",
+    "summary": "This is ibuprofen 200 mg, an NSAID pain reliever and fever reducer. The most important point for you is the warning about blood thinners, since you take warfarin. One inactive ingredient may need a vegan check.",
+    "personalFlags": [
+      {
+        "severity": "caution",
+        "kind": "interaction",
+        "title": "Ibuprofen (NSAID) and warfarin",
+        "explanation": "NSAIDs like ibuprofen can raise bleeding risk with blood thinners such as warfarin. Confirm with a pharmacist or doctor before using this.",
+        "evidence": "take a blood thinning (anticoagulant) or steroid drug",
+        "profileMatch": "warfarin"
+      },
+      {
+        "severity": "info",
+        "kind": "diet",
+        "title": "Stearic acid may be animal-derived",
+        "explanation": "Stearic acid can come from animal or plant sources. The label does not say which. Check with the maker if you need it to be vegan.",
+        "evidence": "stearic acid",
+        "profileMatch": "vegan"
+      }
+    ],
+    "labelWarnings": [
+      {
+        "severity": "danger",
+        "text": "NSAIDs may cause severe stomach bleeding, more likely with age 60+, ulcers, or alcohol.",
+        "evidence": "This product contains an NSAID, which may cause severe stomach bleeding."
+      },
+      {
+        "severity": "danger",
+        "text": "NSAIDs can increase the risk of heart attack, heart failure, and stroke, which can be fatal.",
+        "evidence": "NSAIDs, except aspirin, increase the risk of heart attack, heart failure, and stroke. These can be fatal."
+      },
+      {
+        "severity": "caution",
+        "text": "May cause a severe allergic reaction, especially in people allergic to aspirin. Stop use and get help.",
+        "evidence": "Ibuprofen may cause a severe allergic reaction, especially in people allergic to aspirin."
+      },
+      {
+        "severity": "info",
+        "text": "Keep out of reach of children.",
+        "evidence": "Keep out of reach of children."
+      }
+    ],
+    "keyFacts": [
+      {
+        "label": "Active ingredient",
+        "value": "Ibuprofen 200 mg (NSAID) in each tablet"
+      },
+      {
+        "label": "Purpose",
+        "value": "Pain reliever/fever reducer"
+      },
+      {
+        "label": "Ask a doctor first if",
+        "value": "taking any other drug, or under a doctor's care for a serious condition"
+      }
+    ],
+    "safeForYou": "check",
+    "confidence": "high",
+    "disclaimer": "This explains the label and is not medical advice. Ask a pharmacist or doctor about anything you are unsure of. In case of overdose, call local emergency services or Poison Control right away."
+  }
+}

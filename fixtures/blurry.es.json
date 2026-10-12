@@ -1,0 +1,35 @@
+{
+  "sampleId": "blurry",
+  "language": "es",
+  "recordedWith": {
+    "allergies": [
+      "peanut",
+      "tree nuts"
+    ],
+    "medications": [
+      "warfarin"
+    ],
+    "diet": [
+      "vegan"
+    ],
+    "language": "es"
+  },
+  "quick": {
+    "readable": false,
+    "labelType": "food",
+    "productName": null
+  },
+  "analysis": {
+    "labelType": "food",
+    "productName": "Trailhead Crunch Honey Peanut Bar",
+    "readable": false,
+    "language": "es",
+    "summary": "La foto está muy borrosa y no puedo leer la lista de ingredientes ni los avisos de alérgenos con seguridad. Vuelve a tomar la foto con la cámara firme, más luz y más cerca del texto.",
+    "personalFlags": [],
+    "labelWarnings": [],
+    "keyFacts": [],
+    "safeForYou": "unknown",
+    "confidence": "low",
+    "disclaimer": "Mientras no se pueda leer bien la etiqueta, no la uses para decidir si algo es seguro para ti; consulta con el fabricante o con un farmacéutico si tienes dudas."
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "sampleId": "cleaner",
+  "language": "en",
+  "recordedWith": {
+    "allergies": [
+      "peanut",
+      "tree nuts"
+    ],
+    "medications": [
+      "warfarin"
+    ],
+    "diet": [
+      "vegan"
+    ],
+    "language": "en"
+  },
+  "quick": {
+    "readable": true,
+    "labelType": "household",
+    "productName": "BRIGHTHOME Concentrated Regular Bleach"
+  },
+  "analysis": {
+    "labelType": "household",
+    "productName": "BrightHome Concentrated Regular Bleach",
+    "readable": true,
+    "language": "en",
+    "summary": "This is a concentrated household bleach with 6.0% sodium hypochlorite. The label marks it DANGER and corrosive to eyes and skin. Nothing on the label matches your allergies, warfarin, or vegan diet, but it is not for eating or drinking.",
+    "personalFlags": [],
+    "labelWarnings": [
+      {
+        "severity": "danger",
+        "text": "Corrosive. Causes lasting eye damage and skin burns. Harmful if swallowed.",
+        "evidence": "CORROSIVE. Causes irreversible eye damage and skin burns. Harmful if swallowed."
+      },
+      {
+        "severity": "danger",
+        "text": "Never mix with ammonia, vinegar, toilet bowl cleaners, rust removers or other acids. Mixing makes hazardous gases.",
+        "evidence": "Do not mix with ammonia, vinegar, toilet bowl cleaners, rust removers or other acids. Mixing releases hazardous gases."
+      },
+      {
+        "severity": "caution",
+        "text": "Wear eye protection and rubber gloves. Use only with good ventilation.",
+        "evidence": "Wear protective eyewear and rubber gloves when handling."
+      },
+      {
+        "severity": "info",
+        "text": "Keep out of reach of children. Store cool and dry, away from sun and heat.",
+        "evidence": "KEEP OUT OF REACH OF CHILDREN."
+      }
+    ],
+    "keyFacts": [
+      {
+        "label": "Active ingredient",
+        "value": "Sodium hypochlorite 6.0%"
+      },
+      {
+        "label": "Key hazard",
+        "value": "DANGER: corrosive; do not mix with acids or ammonia"
+      },
+      {
+        "label": "If in eyes",
+        "value": "Rinse slowly with water for 15–20 minutes"
+      },
+      {
+        "label": "If swallowed",
+        "value": "Call a poison control center or doctor immediately"
+      }
+    ],
+    "safeForYou": "yes",
+    "confidence": "high",
+    "disclaimer": "If this product is swallowed or gets in the eyes, call local emergency services or poison control right away and keep the label with you."
+  }
+}
