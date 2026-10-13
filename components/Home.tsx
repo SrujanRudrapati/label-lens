@@ -25,6 +25,8 @@ interface HomeProps {
   footer: ReactNode;
   scanButtonRef: RefObject<HTMLButtonElement | null>;
   onFile: (file: File) => void;
+  /** Asked before the file picker opens; false means the app showed something else first. */
+  allowCamera: () => boolean;
   onSample: (id: SampleId) => void;
 }
 
@@ -71,10 +73,12 @@ interface HeroProps {
   desktop: boolean;
   scanButtonRef: RefObject<HTMLButtonElement | null>;
   onFile: (file: File) => void;
+  /** Asked before the file picker opens; false means the app showed something else first. */
+  allowCamera: () => boolean;
   onSample: (id: SampleId) => void;
 }
 
-function Hero({ desktop, scanButtonRef, onFile, onSample }: HeroProps) {
+function Hero({ desktop, scanButtonRef, onFile, allowCamera, onSample }: HeroProps) {
   return (
     <div className="flex min-h-[calc(100svh-5.5rem)] flex-col gap-7 lg:grid lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-12 lg:py-10">
       <section aria-labelledby="hero-title" className="flex flex-col gap-4 pt-2 lg:gap-8 lg:pt-0">
@@ -90,7 +94,7 @@ function Hero({ desktop, scanButtonRef, onFile, onSample }: HeroProps) {
           <StepRow />
         </div>
         <div className="hidden flex-col items-start gap-3 lg:flex">
-          <CaptureButton ref={desktop ? scanButtonRef : undefined} onFile={onFile} label="Scan a label" variant="hero" />
+          <CaptureButton ref={desktop ? scanButtonRef : undefined} onFile={onFile} allowCamera={allowCamera} label="Scan a label" variant="hero" />
           <button
             type="button"
             onClick={() => onSample("snack")}
@@ -112,7 +116,7 @@ function Hero({ desktop, scanButtonRef, onFile, onSample }: HeroProps) {
       {/* Phones: camera first, the scan button within thumb reach. */}
       <div className="min-h-4 flex-1 lg:hidden" />
       <div className="flex flex-col gap-7 pb-4 lg:hidden">
-        <CaptureButton ref={desktop ? undefined : scanButtonRef} onFile={onFile} label="Scan a label" variant="hero" />
+        <CaptureButton ref={desktop ? undefined : scanButtonRef} onFile={onFile} allowCamera={allowCamera} label="Scan a label" variant="hero" />
         <SampleChips onPick={onSample} />
       </div>
     </div>
@@ -121,7 +125,7 @@ function Hero({ desktop, scanButtonRef, onFile, onSample }: HeroProps) {
 
 const DIVIDER = "border-t border-ink/10";
 
-export function Home({ landing, profileLink, notice, footer, scanButtonRef, onFile, onSample }: HomeProps) {
+export function Home({ landing, profileLink, notice, footer, scanButtonRef, onFile, allowCamera, onSample }: HomeProps) {
   const desktop = useMediaQuery(DESKTOP_QUERY);
 
   function openApp() {
@@ -140,7 +144,7 @@ export function Home({ landing, profileLink, notice, footer, scanButtonRef, onFi
           {profileLink}
         </header>
         {notice}
-        <Hero desktop={desktop} scanButtonRef={scanButtonRef} onFile={onFile} onSample={onSample} />
+        <Hero desktop={desktop} scanButtonRef={scanButtonRef} onFile={onFile} allowCamera={allowCamera} onSample={onSample} />
         {footer}
       </main>
     );
@@ -151,7 +155,7 @@ export function Home({ landing, profileLink, notice, footer, scanButtonRef, onFi
       <Nav profile={profileLink} onOpenApp={openApp} />
       <main id="top" className="sky mx-auto flex w-full max-w-[560px] flex-1 flex-col lg:max-w-[1120px]">
         {notice && <div className="pt-4">{notice}</div>}
-        <Hero desktop={desktop} scanButtonRef={scanButtonRef} onFile={onFile} onSample={onSample} />
+        <Hero desktop={desktop} scanButtonRef={scanButtonRef} onFile={onFile} allowCamera={allowCamera} onSample={onSample} />
         <div className={DIVIDER}>
           <ReadsStrip />
         </div>
@@ -166,7 +170,7 @@ export function Home({ landing, profileLink, notice, footer, scanButtonRef, onFi
         <div className={DIVIDER}>
           <Faq />
         </div>
-        <ClosingCta scanButton={<CaptureButton onFile={onFile} label="Scan a label" variant="hero" />} />
+        <ClosingCta scanButton={<CaptureButton onFile={onFile} allowCamera={allowCamera} label="Scan a label" variant="hero" />} />
         <LandingFooter onOpenApp={openApp} />
       </main>
     </>

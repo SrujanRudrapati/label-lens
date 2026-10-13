@@ -39,6 +39,7 @@ const browser = await chromium.launch();
 // 1. First-run profile, filled in with the demo profile.
 const setup = await newPage(browser, { setupDone: false });
 await setup.goto(BASE);
+await setup.getByRole("button", { name: "Snack bar" }).click();
 await setup.getByRole("heading", { name: "What should we watch for?" }).waitFor();
 await save(setup, "profile");
 

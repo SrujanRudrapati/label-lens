@@ -6,6 +6,8 @@ interface CaptureButtonProps {
   onFile: (file: File) => void;
   label: string;
   variant?: "primary" | "pill" | "hero" | "quiet";
+  /** Checked on tap; return false to keep the file picker closed. */
+  allowCamera?: () => boolean;
   ref?: Ref<HTMLButtonElement>;
 }
 
@@ -25,7 +27,7 @@ function CameraIcon() {
 }
 
 /** Plain file input with capture (no getUserMedia), so it works on iOS Safari and opens the rear camera. */
-export function CaptureButton({ onFile, label, variant = "primary", ref }: CaptureButtonProps) {
+export function CaptureButton({ onFile, label, variant = "primary", allowCamera, ref }: CaptureButtonProps) {
   const input = useRef<HTMLInputElement>(null);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -54,7 +56,7 @@ export function CaptureButton({ onFile, label, variant = "primary", ref }: Captu
         aria-hidden="true"
         onChange={handleChange}
       />
-      <button ref={ref} type="button" onClick={() => input.current?.click()} className={`flex items-center gap-3 font-bold ${look}`}>
+      <button ref={ref} type="button" onClick={() => (allowCamera?.() ?? true) && input.current?.click()} className={`flex items-center gap-3 font-bold ${look}`}>
         {variant !== "quiet" && <CameraIcon />}
         {label}
       </button>

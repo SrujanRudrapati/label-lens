@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { profileItems, useProfile } from "@/lib/profile";
 import { DEFAULT_PROFILE, type Profile } from "@/lib/schema";
 import type { SampleId } from "@/lib/samples";
-import { DESKTOP_QUERY, useMediaQuery } from "@/lib/useMediaQuery";
 import { scanProblem, scanStatus, scanTitle } from "@/lib/scanState";
 import { announcement, stickersFrom, type StickerItem } from "@/lib/stickers";
 import { buildSpeech, useSpeech } from "@/lib/speak";
@@ -45,6 +44,8 @@ function ProfileNoticeText({ notice }: { notice: "unreadable" | "not-saved" }) {
 /** The phone demo needs a profile to show a personal flag; a visitor's own profile wins when they have one. */
 const DEMO_PROFILE: Profile = { ...DEFAULT_PROFILE, allergies: ["peanut"] };
 
+type SetupTrigger = { kind: "camera" } | { kind: "sample"; sampleId: SampleId };
+
 function Footer() {
   return <footer className="mt-4 border-t border-rule pt-5 text-meta text-ink-soft">Label Lens explains labels. It is not medical advice.</footer>;
 }
@@ -58,12 +59,14 @@ export function LabelLens({ demo }: LabelLensProps = {}) {
   const { profile: savedProfile, ready, setupDone, notice, save, skipSetup } = useProfile();
   const profile = demo && profileItems(savedProfile).length === 0 ? DEMO_PROFILE : savedProfile;
   const { state, scan, retry, reset } = useScan(profile);
-  const desktop = useMediaQuery(DESKTOP_QUERY);
   const [demoStarted, setDemoStarted] = useState(false);
   const speech = useSpeech();
   const [profileOpen, setProfileOpen] = useState(false);
   const status = scanStatus(state);
   const [open, setOpen] = useState<StickerItem | null>(null);
+  // First visit: the landing page shows first; setup appears on the first scan or sample tap.
+  const [setupFor, setSetupFor] = useState<SetupTrigger | null>(null);
+  const needsSetup = !demo && ready && !setupDone;
 
   const headingRef = useRef<HTMLHeadingElement>(null);
   const scanButtonRef = useRef<HTMLButtonElement>(null);
@@ -71,6 +74,14 @@ export function LabelLens({ demo }: LabelLensProps = {}) {
   const listRef = useRef<HTMLHeadingElement>(null);
   const openTrigger = useRef<HTMLElement | null>(null);
   const wasIdle = useRef(true);
+
+  // Once setup is saved or skipped, a sample tap carries on with the new profile.
+  // (A camera tap can't reopen the file picker by itself; focus returns to the scan button below.)
+  useEffect(() => {
+    if (!setupDone || !setupFor) return;
+    setSetupFor(null); // eslint-disable-line react-hooks/set-state-in-effect
+    if (setupFor.kind === "sample") scan({ kind: "sample", sampleId: setupFor.sampleId });
+  }, [setupDone, setupFor, scan]);
 
   // After first-run setup is saved or skipped, the form unmounts; land on the scan button.
   const wasSetupDone = useRef(true);
@@ -133,11 +144,22 @@ export function LabelLens({ demo }: LabelLensProps = {}) {
 
   if (demo && !demoStarted) return <main className="flex-1" />;
 
-  // Desktop opens on the landing page; setup is one click away in the header.
-  if (status === "idle" && ready && !setupDone && !desktop) {
+  /** True when the file picker may open now; otherwise first-run setup is shown instead. */
+  function allowCamera(): boolean {
+    if (!needsSetup) return true;
+    setSetupFor({ kind: "camera" });
+    return false;
+  }
+
+  function pickSample(sampleId: SampleId) {
+    if (needsSetup) setSetupFor({ kind: "sample", sampleId });
+    else scan({ kind: "sample", sampleId });
+  }
+
+  if (status === "idle" && needsSetup && setupFor) {
     return (
       <main className="mx-auto flex w-full max-w-[560px] flex-1 flex-col gap-6 pb-5">
-        <header className="flex min-h-12 items-center">
+        <header className="flex min-h-12 items-center pt-2">
           <span className="text-lead font-bold">Label Lens</span>
         </header>
         {notice === "unreadable" && <ProfileNoticeText notice={notice} />}
@@ -166,7 +188,8 @@ export function LabelLens({ demo }: LabelLensProps = {}) {
           footer={<Footer />}
           scanButtonRef={scanButtonRef}
           onFile={startFile}
-          onSample={(sampleId) => scan({ kind: "sample", sampleId })}
+          allowCamera={allowCamera}
+          onSample={pickSample}
         />
         <ProfileSheet open={profileOpen} profile={savedProfile} onSave={saveFromSheet} onClose={() => setProfileOpen(false)} />
       </>

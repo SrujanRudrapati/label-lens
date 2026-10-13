@@ -32,12 +32,12 @@ export function FreePrivate() {
  * Every number here is checked against the repo. Update them when the source changes:
  * - 44 quotes: every `evidence` string in fixtures/*.json, each found word for word on its sample photo (docs/STATUS.md).
  * - 2 models: QUICK_MODEL and ANALYSIS_MODEL in lib/models.ts, called in parallel by lib/useScan.ts.
- * - 67 tests: 56 in `npm test` (Vitest) plus 11 in `npm run e2e` (Playwright).
+ * - 68 tests: 56 in `npm test` (Vitest) plus 12 in `npm run e2e` (Playwright).
  */
 const STATS = [
   { value: "44 of 44", label: "warning quotes in our saved examples found word for word on the label" },
   { value: "2", label: "Claude models read every photo at the same time: one for the first read, one for the full check" },
-  { value: "67", label: "automated tests, from the answer format to the full scan in a browser" },
+  { value: "68", label: "automated tests, from the answer format to the full scan in a browser" },
 ] as const;
 
 export function Numbers() {
