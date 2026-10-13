@@ -105,6 +105,9 @@ Other commands: `npm run build`, `npm run lint`, `npm test` (unit tests), `npm r
 ## Team
 Srujan
 
+## License
+[MIT](LICENSE) © 2026 Srujan Rudrapati.
+
 ## Disclaimer
 Label Lens explains labels. It is not medical advice. Always confirm medication questions with a
 pharmacist or doctor. In an emergency, call your local emergency services or poison control.
