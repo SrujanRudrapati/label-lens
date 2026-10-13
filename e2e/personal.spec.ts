@@ -47,9 +47,9 @@ test("first-run setup, peanut and warfarin cases, Spanish, and Ask", async ({ pa
 test("a returning visitor skips setup", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Skip for now" }).click();
-  await expect(page.getByRole("button", { name: "Scan a label" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Scan a label" }).first()).toBeVisible();
   await page.reload();
-  await expect(page.getByRole("button", { name: "Scan a label" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Scan a label" }).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "What should we watch for?" })).toHaveCount(0);
 });
 

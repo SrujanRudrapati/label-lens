@@ -100,24 +100,80 @@ body {
   }
 }
 
-/* Home only: paper fading into a pale sky, with a few soft clouds. Ink stays above 12:1 on every stop. */
+/* Home only: a pale sky at the top fading into paper, with a few soft clouds. Ink stays above 12:1 on every stop. */
 body:has(.sky) {
   background:
-    radial-gradient(38rem 16rem at 12% 78%, rgb(255 255 255 / 0.85), transparent 70%),
-    radial-gradient(30rem 12rem at 88% 22%, rgb(255 255 255 / 0.7), transparent 70%),
-    radial-gradient(44rem 18rem at 70% 96%, rgb(255 255 255 / 0.75), transparent 70%),
-    linear-gradient(180deg, var(--color-paper) 0, #eaf1fb 420px, var(--color-sky) 860px, var(--color-sky) 100%);
+    radial-gradient(40rem 14rem at 10% 520px, rgb(255 255 255 / 0.85), transparent 70%),
+    radial-gradient(32rem 12rem at 88% 140px, rgb(255 255 255 / 0.7), transparent 70%),
+    radial-gradient(46rem 16rem at 62% 980px, rgb(255 255 255 / 0.6), transparent 70%),
+    linear-gradient(180deg, var(--color-sky) 0, #eaf1fb 520px, var(--color-paper) 1100px, var(--color-paper) 100%);
+  background-repeat: no-repeat;
 }
 
-/* Highlighter swipe in a sticker color, kept light so ink text stays AA. */
-.swipe {
-  background: linear-gradient(transparent 52%, color-mix(in srgb, var(--swipe) 42%, white) 52%, color-mix(in srgb, var(--swipe) 42%, white) 92%, transparent 92%);
+/* Highlighted phrase in a sticker color, kept light enough that ink text stays AA. */
+.mark {
+  background: color-mix(in srgb, var(--mark) var(--mark-strength, 24%), white);
+  border-radius: 0.18em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-  padding: 0 0.08em;
+  padding: 0 0.1em 0.02em;
+  white-space: nowrap;
 }
 
-/* The phone shrinks on short screens so the whole hero fits above the fold. */
+/* One phone frame for every mockup. Everything scales from the screen width (--w). */
+.phone-frame {
+  --w: 280px;
+  position: relative;
+  width: calc(var(--w) * 1.064);
+  padding: calc(var(--w) * 0.032);
+  border-radius: calc(var(--w) * 0.15);
+  background: var(--color-ink);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    inset 0 0 0 1px rgb(255 255 255 / 0.08),
+    0 40px 70px -34px rgb(24 38 58 / 0.55),
+    0 16px 30px -18px rgb(24 38 58 / 0.4);
+}
+/* Side buttons: volume on the left, power on the right. */
+.phone-frame::before,
+.phone-frame::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--w) * 0.012);
+  background: var(--color-ink);
+  border-radius: 2px;
+}
+.phone-frame::before {
+  left: calc(var(--w) * -0.01);
+  top: 22%;
+  height: 11%;
+  box-shadow: 0 calc(var(--w) * 0.2) 0 var(--color-ink);
+}
+.phone-frame::after {
+  right: calc(var(--w) * -0.01);
+  top: 27%;
+  height: 15%;
+}
+.phone-screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--w) * 0.12);
+  background: var(--color-paper);
+  aspect-ratio: var(--aspect, 390 / 844);
+}
+.phone-island {
+  position: absolute;
+  z-index: 10;
+  top: calc(var(--w) * 0.026);
+  left: 50%;
+  width: calc(var(--w) * 0.27);
+  height: calc(var(--w) * 0.068);
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--color-ink);
+}
+
+/* The live hero phone shrinks on short screens so the whole hero fits above the fold. */
 .phone {
   zoom: 1;
 }
@@ -130,4 +186,8 @@ body:has(.sky) {
   .phone {
     zoom: 0.76;
   }
+}
+
+html {
+  scroll-padding-top: 5rem;
 }

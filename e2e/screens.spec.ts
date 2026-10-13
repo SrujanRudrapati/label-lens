@@ -29,10 +29,11 @@ for (const vp of VIEWPORTS) {
     });
 
     await page.goto("/");
-    await expect(page.getByRole("button", { name: "Scan a label" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Scan a label" }).first()).toBeVisible();
     await expect(page.getByText("Checking for")).toBeVisible();
-    await page.waitForFunction(() => [...document.images].filter((img) => img.checkVisibility()).every((img) => img.complete && img.naturalWidth > 0));
-    await page.screenshot({ path: `${OUT}/home-${vp.name}.png`, fullPage: true });
+    await page.waitForFunction(() => [...document.images].filter((img) => img.checkVisibility() && img.getBoundingClientRect().top < innerHeight).every((img) => img.complete && img.naturalWidth > 0));
+    // Viewport only: the landing page below the hero is captured by e2e/landing.spec.ts.
+    await page.screenshot({ path: `${OUT}/home-${vp.name}.png` });
 
     await page.getByRole("button", { name: vp.width >= 1024 ? "or try a sample" : "Snack bar" }).click();
     await expect(page.getByRole("heading", { level: 1, name: "Trailhead Crunch Honey Peanut Bar" })).toBeVisible();

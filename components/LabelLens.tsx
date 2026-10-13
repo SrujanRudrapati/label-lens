@@ -152,17 +152,15 @@ export function LabelLens({ demo }: LabelLensProps = {}) {
     return (
       <>
         <Home
-          header={
-            <header className="flex min-h-12 flex-wrap items-center justify-between gap-x-4 lg:min-h-16">
-              <span className="text-lead font-bold">Label Lens</span>
-              <button
-                type="button"
-                onClick={() => setProfileOpen(true)}
-                className="-mr-3 flex min-h-12 items-center rounded-full px-3 text-meta font-bold text-ink-soft underline decoration-rule-strong decoration-2 underline-offset-4"
-              >
-                {checking.length > 0 ? `Checking for ${checking.join(", ")}` : "Add your profile"}
-              </button>
-            </header>
+          landing={!demo}
+          profileLink={
+            <button
+              type="button"
+              onClick={() => setProfileOpen(true)}
+              className="-mr-3 flex min-h-12 items-center rounded-full px-3 text-meta font-bold text-ink-soft underline decoration-rule-strong decoration-2 underline-offset-4"
+            >
+              {checking.length > 0 ? `Checking for ${checking.join(", ")}` : "Add your profile"}
+            </button>
           }
           notice={notice && <ProfileNoticeText notice={notice} />}
           footer={<Footer />}
