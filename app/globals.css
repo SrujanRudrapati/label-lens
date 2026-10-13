@@ -13,6 +13,9 @@
   --color-sticker-green: #2fa36b;
 
   --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument), ui-serif, Georgia, serif;
+
+  --color-sky: #dfeaf8;
 
   --radius-sticker: 6px;
   --radius-sheet: 14px;
@@ -94,5 +97,37 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .sticker-apply {
     animation: none;
+  }
+}
+
+/* Home only: paper fading into a pale sky, with a few soft clouds. Ink stays above 12:1 on every stop. */
+body:has(.sky) {
+  background:
+    radial-gradient(38rem 16rem at 12% 78%, rgb(255 255 255 / 0.85), transparent 70%),
+    radial-gradient(30rem 12rem at 88% 22%, rgb(255 255 255 / 0.7), transparent 70%),
+    radial-gradient(44rem 18rem at 70% 96%, rgb(255 255 255 / 0.75), transparent 70%),
+    linear-gradient(180deg, var(--color-paper) 0, #eaf1fb 420px, var(--color-sky) 860px, var(--color-sky) 100%);
+}
+
+/* Highlighter swipe in a sticker color, kept light so ink text stays AA. */
+.swipe {
+  background: linear-gradient(transparent 52%, color-mix(in srgb, var(--swipe) 42%, white) 52%, color-mix(in srgb, var(--swipe) 42%, white) 92%, transparent 92%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.08em;
+}
+
+/* The phone shrinks on short screens so the whole hero fits above the fold. */
+.phone {
+  zoom: 1;
+}
+@media (max-height: 940px) {
+  .phone {
+    zoom: 0.86;
+  }
+}
+@media (max-height: 820px) {
+  .phone {
+    zoom: 0.76;
   }
 }

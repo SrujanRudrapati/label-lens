@@ -5,7 +5,7 @@ import { useRef, type ChangeEvent, type Ref } from "react";
 interface CaptureButtonProps {
   onFile: (file: File) => void;
   label: string;
-  variant?: "primary" | "pill" | "quiet";
+  variant?: "primary" | "pill" | "hero" | "quiet";
   ref?: Ref<HTMLButtonElement>;
 }
 
@@ -38,6 +38,7 @@ export function CaptureButton({ onFile, label, variant = "primary", ref }: Captu
   const look = {
     primary: "h-16 w-full justify-center rounded-sheet bg-ink text-lead text-paper",
     pill: "min-h-12 rounded-full bg-ink pr-5 pl-4 text-paper",
+    hero: "h-16 w-full justify-center rounded-full bg-ink px-8 text-lead text-paper shadow-[0_14px_30px_-12px_rgba(24,38,58,0.55),0_2px_6px_-2px_rgba(24,38,58,0.3)] lg:w-auto",
     quiet: "min-h-12 rounded-full border border-rule-strong bg-white px-4",
   }[variant];
 

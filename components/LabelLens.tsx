@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { profileItems, useProfile } from "@/lib/profile";
-import type { Profile } from "@/lib/schema";
+import { DEFAULT_PROFILE, type Profile } from "@/lib/schema";
+import type { SampleId } from "@/lib/samples";
+import { DESKTOP_QUERY, useMediaQuery } from "@/lib/useMediaQuery";
 import { scanProblem, scanStatus, scanTitle } from "@/lib/scanState";
 import { announcement, stickersFrom, type StickerItem } from "@/lib/stickers";
 import { buildSpeech, useSpeech } from "@/lib/speak";
@@ -11,10 +13,10 @@ import { CaptureButton } from "./CaptureButton";
 import { ERROR_COPY, ErrorState } from "./ErrorState";
 import { EvidenceSheet } from "./EvidenceSheet";
 import { PhotoStage } from "./PhotoStage";
+import { Home } from "./Home";
 import { ProfileSetup } from "./ProfileSetup";
 import { ProfileSheet } from "./ProfileSheet";
 import { PendingBody, ResultBody } from "./ResultBody";
-import { SampleChips } from "./SampleChips";
 
 const LABEL_TYPE_NAME = { food: "Food label", medicine: "Medicine label", household: "Household product", other: "Label" } as const;
 
@@ -40,13 +42,24 @@ function ProfileNoticeText({ notice }: { notice: "unreadable" | "not-saved" }) {
   );
 }
 
+/** The phone demo needs a profile to show a personal flag; a visitor's own profile wins when they have one. */
+const DEMO_PROFILE: Profile = { ...DEFAULT_PROFILE, allergies: ["peanut"] };
+
 function Footer() {
   return <footer className="mt-4 border-t border-rule pt-5 text-meta text-ink-soft">Label Lens explains labels. It is not medical advice.</footer>;
 }
 
-export function LabelLens() {
-  const { profile, ready, setupDone, notice, save, skipSetup } = useProfile();
+interface LabelLensProps {
+  /** Opens straight onto this sample's result, for the phone on the desktop home page. */
+  demo?: SampleId;
+}
+
+export function LabelLens({ demo }: LabelLensProps = {}) {
+  const { profile: savedProfile, ready, setupDone, notice, save, skipSetup } = useProfile();
+  const profile = demo && profileItems(savedProfile).length === 0 ? DEMO_PROFILE : savedProfile;
   const { state, scan, retry, reset } = useScan(profile);
+  const desktop = useMediaQuery(DESKTOP_QUERY);
+  const [demoStarted, setDemoStarted] = useState(false);
   const speech = useSpeech();
   const [profileOpen, setProfileOpen] = useState(false);
   const status = scanStatus(state);
@@ -73,10 +86,18 @@ export function LabelLens() {
     wasIdle.current = idle;
   }, [status]);
 
-  // Every new scan (including a retake straight from a result) lands on the result heading.
+  // The demo starts itself once the saved profile is read.
   useEffect(() => {
-    if (state.active) headingRef.current?.focus();
-  }, [state.run, state.active]);
+    if (!demo || !ready || demoStarted) return;
+    setDemoStarted(true); // eslint-disable-line react-hooks/set-state-in-effect
+    scan({ kind: "sample", sampleId: demo });
+  }, [demo, ready, demoStarted, scan]);
+
+  // Every new scan (including a retake straight from a result) lands on the result heading.
+  // Not the demo's own first run: focusing inside the phone would pull focus off the host page.
+  useEffect(() => {
+    if (state.active && !(demo && state.run === 1)) headingRef.current?.focus();
+  }, [demo, state.run, state.active]);
 
   useEffect(() => {
     if (open) sheetRef.current?.focus();
@@ -110,47 +131,47 @@ export function LabelLens() {
     setProfileOpen(false);
   }
 
-  if (status === "idle" && ready && !setupDone) {
+  if (demo && !demoStarted) return <main className="flex-1" />;
+
+  // Desktop opens on the landing page; setup is one click away in the header.
+  if (status === "idle" && ready && !setupDone && !desktop) {
     return (
       <main className="mx-auto flex w-full max-w-[560px] flex-1 flex-col gap-6 pb-5">
         <header className="flex min-h-12 items-center">
           <span className="text-lead font-bold">Label Lens</span>
         </header>
         {notice === "unreadable" && <ProfileNoticeText notice={notice} />}
-        <ProfileSetup initial={profile} onSave={save} onSkip={skipSetup} />
+        <ProfileSetup initial={savedProfile} onSave={save} onSkip={skipSetup} />
         <Footer />
       </main>
     );
   }
 
   if (status === "idle") {
+    const checking = profileItems(savedProfile);
     return (
-      <main className="mx-auto flex w-full max-w-[560px] flex-1 flex-col gap-7 pb-5">
-        <header className="flex min-h-12 flex-wrap items-center justify-between gap-x-4">
-          <span className="text-lead font-bold">Label Lens</span>
-          <button
-            type="button"
-            onClick={() => setProfileOpen(true)}
-            className="-mr-3 flex min-h-12 items-center rounded-full px-3 text-meta font-bold text-ink-soft underline decoration-rule-strong decoration-2 underline-offset-4"
-          >
-            {profileItems(profile).length > 0 ? `Checking for ${profileItems(profile).join(", ")}` : "Add your profile"}
-          </button>
-        </header>
-
-        {notice && <ProfileNoticeText notice={notice} />}
-
-        <section className="flex flex-col gap-3">
-          <h1 className="text-title leading-tight font-bold tracking-[-0.01em]">Point at a label.</h1>
-          <p className="max-w-[62ch] text-lead text-ink-soft">We&apos;ll explain what it means for you.</p>
-        </section>
-
-        <div className="min-h-4 flex-1 lg:max-h-8" />
-
-        <CaptureButton ref={scanButtonRef} onFile={startFile} label="Scan a label" />
-        <SampleChips onPick={(sampleId) => scan({ kind: "sample", sampleId })} />
-        <Footer />
-        <ProfileSheet open={profileOpen} profile={profile} onSave={saveFromSheet} onClose={() => setProfileOpen(false)} />
-      </main>
+      <>
+        <Home
+          header={
+            <header className="flex min-h-12 flex-wrap items-center justify-between gap-x-4 lg:min-h-16">
+              <span className="text-lead font-bold">Label Lens</span>
+              <button
+                type="button"
+                onClick={() => setProfileOpen(true)}
+                className="-mr-3 flex min-h-12 items-center rounded-full px-3 text-meta font-bold text-ink-soft underline decoration-rule-strong decoration-2 underline-offset-4"
+              >
+                {checking.length > 0 ? `Checking for ${checking.join(", ")}` : "Add your profile"}
+              </button>
+            </header>
+          }
+          notice={notice && <ProfileNoticeText notice={notice} />}
+          footer={<Footer />}
+          scanButtonRef={scanButtonRef}
+          onFile={startFile}
+          onSample={(sampleId) => scan({ kind: "sample", sampleId })}
+        />
+        <ProfileSheet open={profileOpen} profile={savedProfile} onSave={saveFromSheet} onClose={() => setProfileOpen(false)} />
+      </>
     );
   }
 
