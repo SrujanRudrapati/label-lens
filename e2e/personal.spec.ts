@@ -51,8 +51,10 @@ test("Scan a label asks for setup first on a first visit, without opening the ca
   await page.goto("/");
   let pickerOpened = false;
   page.on("filechooser", () => (pickerOpened = true));
-  await page.getByRole("button", { name: "Scan a label" }).first().click();
-  await expect(page.getByRole("heading", { name: "What should we watch for?" })).toBeVisible();
+  // Tap the one at the foot of the landing page: setup should open at its top, with focus on its heading.
+  await page.getByRole("button", { name: "Scan a label" }).filter({ visible: true }).last().click();
+  await expect(page.getByRole("heading", { name: "What should we watch for?" })).toBeFocused();
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
   expect(pickerOpened).toBe(false);
 
   // Skipping returns to the scan button, which now opens the camera.

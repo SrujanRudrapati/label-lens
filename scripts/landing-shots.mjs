@@ -1,5 +1,6 @@
 // Regenerates the phone screens on the landing page (public/landing/*.webp) from the real app in mock mode.
 // Needs `MOCK_AI=1 npx next dev -p 3100` running, then: node scripts/landing-shots.mjs
+// Uses sharp (installed with Next.js as an optional dependency); if it is missing, `npm i -D sharp` first.
 import { chromium } from "@playwright/test";
 import sharp from "sharp";
 import { statSync } from "node:fs";
