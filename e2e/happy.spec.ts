@@ -11,7 +11,8 @@ test("happy path: sample label to sticker to evidence", async ({ page }) => {
   });
   await page.goto("/");
 
-  await page.getByRole("button", { name: "Snack bar" }).click();
+  // Desktop viewport: the landing page offers the snack sample as "or try a sample".
+  await page.getByRole("button", { name: "or try a sample" }).click();
   await expect(page.getByRole("heading", { level: 1, name: "Trailhead Crunch Honey Peanut Bar" })).toBeVisible();
 
   const sticker = page.getByRole("button", { name: /^Contains peanuts\. Danger/ });

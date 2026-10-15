@@ -5,7 +5,9 @@ import { useRef, type ChangeEvent, type Ref } from "react";
 interface CaptureButtonProps {
   onFile: (file: File) => void;
   label: string;
-  variant?: "primary" | "pill" | "quiet";
+  variant?: "primary" | "pill" | "hero" | "quiet";
+  /** Checked on tap; return false to keep the file picker closed. */
+  allowCamera?: () => boolean;
   ref?: Ref<HTMLButtonElement>;
 }
 
@@ -25,7 +27,7 @@ function CameraIcon() {
 }
 
 /** Plain file input with capture (no getUserMedia), so it works on iOS Safari and opens the rear camera. */
-export function CaptureButton({ onFile, label, variant = "primary", ref }: CaptureButtonProps) {
+export function CaptureButton({ onFile, label, variant = "primary", allowCamera, ref }: CaptureButtonProps) {
   const input = useRef<HTMLInputElement>(null);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -38,6 +40,7 @@ export function CaptureButton({ onFile, label, variant = "primary", ref }: Captu
   const look = {
     primary: "h-16 w-full justify-center rounded-sheet bg-ink text-lead text-paper",
     pill: "min-h-12 rounded-full bg-ink pr-5 pl-4 text-paper",
+    hero: "h-16 w-full justify-center rounded-full bg-ink px-8 text-lead text-paper shadow-[0_14px_30px_-12px_rgba(24,38,58,0.55),0_2px_6px_-2px_rgba(24,38,58,0.3)] lg:w-auto",
     quiet: "min-h-12 rounded-full border border-rule-strong bg-white px-4",
   }[variant];
 
@@ -53,7 +56,7 @@ export function CaptureButton({ onFile, label, variant = "primary", ref }: Captu
         aria-hidden="true"
         onChange={handleChange}
       />
-      <button ref={ref} type="button" onClick={() => input.current?.click()} className={`flex items-center gap-3 font-bold ${look}`}>
+      <button ref={ref} type="button" onClick={() => (allowCamera?.() ?? true) && input.current?.click()} className={`flex items-center gap-3 font-bold ${look}`}>
         {variant !== "quiet" && <CameraIcon />}
         {label}
       </button>
